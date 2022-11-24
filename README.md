@@ -1,6 +1,8 @@
-# Frank's Advent of Code attempt for 2022
+# [https://snowday.gg](snowday.gg) ❄️☃️
 
-## Guidelines
+## Frank's Advent of Code attempt for 2022
+
+### Guidelines
 
 * End-to-end typescript compliance
   * No `any` anywhere without exceptional reason
