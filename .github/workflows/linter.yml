@@ -1,0 +1,60 @@
+---
+#################################
+#################################
+## Super Linter GitHub Actions ##
+#################################
+#################################
+name: Lint Code Base
+
+env:
+  FILTER_REGEX_EXCLUDE: "./prisma/migrations/*"
+  VALIDATE_TYPESCRIPT_STANDARD: false
+  #TYPESCRIPT_ES_CONFIG_FILE: "{{ $github.workspace }}/.eslintrc.json"
+  #TYPESCRIPT_STANDARD_TSCONFIG_FILE: "{{ $github.workspace }}/tsconfig.json"
+  #LINTER_RULES_PATH: "/"
+
+
+#############################
+# Start the job on all push #
+#############################
+on:
+  #push:
+  #branches-ignore: [main]
+  # Remove the line above to run when pushing to master
+  # pull_request:
+    # branches: [main]
+  pull_request
+
+###############
+# Set the Job #
+###############
+jobs:
+  build:
+    # Name the Job
+    name: Lint Code Base
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper
+          # list of changed files within `super-linter`
+          fetch-depth: 0
+
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GH_FINEGRAIN_TOKEN }}
