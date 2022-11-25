@@ -1,8 +1,10 @@
-# Frank's Advent of Code attempt for 2022
+# [https://snowday.gg](snowday.gg) ❄️☃️
 
-## Guidelines
+## Frank's Advent of Code attempt for 2022
 
-* End-to-end typescript compliance
+### Guidelines
+
+* End-to-end TypeScript compliance
   * No `any` anywhere without exceptional reason
   * No `no-null-assertion` linting errors
   
