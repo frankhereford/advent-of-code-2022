@@ -16,12 +16,27 @@ const Home: NextPage = () => {
         <Snowfall
           color={'#E3E3E3'}
           speed={[0.5, 0.7]}
-          snowflakeCount={500}
-          radius={[0.5,2.0]}
+          snowflakeCount={250}
+          radius={[2,4]}
+          wind={[-0.2, 0.2]}
+          style={{
+            filter: 'blur(3px)'
+          }}
+        ></Snowfall> 
+        <Snowfall
+          color={'#E3E3E3'}
+          speed={[1.5, 1.7]}
+          snowflakeCount={250}
+          radius={[1.5, 3.0]}
           wind={[-0.5, 0.5]}
+          style={{
+            filter: 'blur(1.0px)'
+          }}
         ></Snowfall> 
       </main>
-      <Image className='w-[1690px] barn absolute bottom-0' src="/snowscape.webp" alt="snowy city" width='1690' height="2828" />
+      <div className='overflow-x-hidden w-screen absolute bottom-0'>
+        <Image priority={true}  className='overflow-x-hidden w-[1690px] barn' src="/snowscape.webp" alt="snowy city" width='1690' height="2828" />
+      </div>
     </>
   );
 };
