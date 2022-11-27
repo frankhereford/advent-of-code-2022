@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <Snowfall
           color={'#E3E3E3'}
           speed={[0.5, 0.7]}
-          snowflakeCount={250}
+          snowflakeCount={750}
           radius={[2,4]}
           wind={[-0.2, 0.2]}
           style={{
