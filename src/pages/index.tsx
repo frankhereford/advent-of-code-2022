@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
         <div className='absolute top-0 w-[4096px] h-screen'>
-          <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 120s infinite' }}>
+          <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 150s infinite' }}>
           </div>
         </div>
         <Snowfall
