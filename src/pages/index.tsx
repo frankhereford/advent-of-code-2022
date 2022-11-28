@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
-        <div className='z-[0] absolute top-0 w-[4096px] h-screen'>
+        <div className='w-screen z-[0] absolute top-0 h-screen'>
           <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 150s infinite' }}>
           </div>
         </div>
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
           }}
         ></Snowfall>
         <div className='z-[40] absolute bottom-0 overflow-x-hidden w-screen'>
-          <Image priority={true} className='w-[1728px] barn' src="/snowscape.webp" alt="red barn by a lake" width='1728' height="2828" />
+          <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
         </div>
       </main>
     </>

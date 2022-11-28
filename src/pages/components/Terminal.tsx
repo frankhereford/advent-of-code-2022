@@ -28,6 +28,8 @@ export default function Terminal() {
             </div>
             <div className={"pl-1 pt-1 h-auto  text-green-200 font-mono text-xs "} id="console">
               <p className="pb-1">Last login: {date} on ttys002</p>
+              <p className="pb-1">frank@advent-of-code $ echo &quot;$GIT_MSG $GIT_REPOSITORY&quot;</p>
+              <p className="pb-1">Fork this on GitHub: <a target='_github' href='https://github.com/frankhereford/advent-of-code-2022'>https://github.com/frankhereford/advent-of-code-2022</a></p>
               <p className="pb-1">frank@advent-of-code $</p>
             </div>
           </div>
