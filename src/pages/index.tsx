@@ -5,6 +5,9 @@ import Snowfall from 'react-snowfall'
 
 const Home: NextPage = () => {
 
+          //<Image className='w-[2048px]' src="/cloud_texture.webp" alt="cloud haze" width='2048' height="2048" />
+  //  bg-[url("/cloud_texture.webp")] bg-repeat-x haze
+  // style={{animation: 'haze 10s linear infinite'}}
   return (
     <>
       <Head>
@@ -13,6 +16,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
+        <div className='absolute top-0 w-[4096px] h-screen'>
+          <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 120s infinite' }}>
+          </div>
+        </div>
         <Snowfall
           color={'#E3E3E3'}
           speed={[0.5, 0.7]}
@@ -33,10 +40,10 @@ const Home: NextPage = () => {
             filter: 'blur(1.0px)'
           }}
         ></Snowfall> 
+        <div className='absolute bottom-0 overflow-x-hidden w-screen'>
+          <Image priority={true} className='w-[1728px] barn' src="/snowscape.webp" alt="red barn by a lake" width='1728' height="2828" />
+        </div>
       </main>
-      <div className='overflow-x-hidden w-screen absolute bottom-0'>
-        <Image priority={true}  className='overflow-x-hidden w-[1690px] barn' src="/snowscape.webp" alt="snowy city" width='1690' height="2828" />
-      </div>
     </>
   );
 };
