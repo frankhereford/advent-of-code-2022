@@ -8,11 +8,11 @@ export default function Terminal() {
   }
 
   const date = new Date().toLocaleDateString("en-US")
-  const backgroundColor = 'bg-[#000000BB]'
+  const backgroundColor = 'bg-[#000000bb]'
   return (
     <>
       {isShown && (
-        <div className="z-[50] absolute top-[5%] right-[5%] w-[70%] mx-auto">
+        <div className="z-[50] absolute top-[5%] right-[5%] w-[70%] mx-auto  drop-shadow-[10px_10px_15px_rgba(0,0,0,0.5)] ">
           <div className={"w-full shadow-2xl subpixel-antialiased rounded h-[70vh] " + backgroundColor + " border-black mx-auto"}>
             <div className="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
               <div className="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn" onClick={close}>
