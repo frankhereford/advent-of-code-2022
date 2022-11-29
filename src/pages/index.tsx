@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
 import { useEffect, useState } from 'react'
+import { solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_00'
 
 const Home: NextPage = () => {
   const date = new Date().toLocaleDateString('en-US')
@@ -16,46 +17,13 @@ Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 frank@advent-of-code $`
   const [content, setContent] = useState(defaultContent)
 
-
-
-
-
-  // * smaller is faster
-  const speed = 2
-  // * larger is more variable
-  const variability = 3
-
-  // * this is where you put your solution
-  // ! this should be in its own component
-  function printPascalsTriangle (n: number) {
-    let line = ''
-
-    for (let i = 0; i < n; i++) {
-      let C = 1 // used to represent C(line, i)
-      for (let j = 1; j <= i; j++) {
-        line += String(C) + ' '
-        C = (C * (i - j)) / j
-      }
-      line += '\n'
-    }
-    // * this is the `echo` function
-    // TODO figure out how to abstract this into its own file
+  function printFn (line: string) {
     setContent(c => c + `${line}` + '\n')
   }
 
-
-
-
-
-
-
-
-
   useEffect(() => {
-    setContent(c => c + ' /usr/bin/perl -w ./pascal4lyfe.pl' + '\n')
-    for (let i = 1; i <= 20; i++) {
-      printPascalsTriangle(i)
-    }
+    setContent(c => c + ' ' + invocation + '\n')
+    solution(printFn)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, ['just-once'])
 
@@ -76,9 +44,7 @@ frank@advent-of-code $`
         </div>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-
-        <Terminal content={content} speed={speed} variability={variability}></Terminal>
-
+        <Terminal content={content} speed={terminalSpeed ?? 2} variability={terminalVariability ?? 3}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
