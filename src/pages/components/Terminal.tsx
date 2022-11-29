@@ -1,7 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Terminal() {
+interface commandType {
+  command: string;
+  output: string;
+}
+interface Props {
+  commands: commandType[];
+  speed?: number;
+}
+
+export default function Terminal(props: Props) {
   const [isShown, setIsShown] = useState(true);
+
+  const [commands, setCommands] = useState<commandType[]>([])
+
+  useEffect(() => {
+    const incomingCommandSet = new Set(props.commands)
+    const outgoingCommandSet = new Set(commands)
+    setCommands(props.commands)
+  }, [commands, props.commands])
+
+
 
   function close () {
     setIsShown(false);
@@ -9,6 +28,7 @@ export default function Terminal() {
 
   const date = new Date().toLocaleDateString("en-US")
   const backgroundColor = 'bg-[#000000bb]'
+
   return (
     <>
       {isShown && (
