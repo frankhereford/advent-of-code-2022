@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         </div>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal commands={[]}></Terminal>
+        <Terminal content={'hi'}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
