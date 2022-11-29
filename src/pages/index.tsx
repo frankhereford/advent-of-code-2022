@@ -1,8 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Snowfall from 'react-snowfall'
+
 import Terminal from './components/Terminal'
+import SnowfallComponent from './components/Snowfall'
 
 const Home: NextPage = () => {
 
@@ -24,41 +25,11 @@ const Home: NextPage = () => {
           <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 150s infinite' }}>
           </div>
         </div>
-        <Snowfall
-          color={'#E3E3E3'}
-          speed={[0.5, 0.7]}
-          snowflakeCount={750}
-          radius={[2,4]}
-          wind={[-0.2, 0.2]}
-          style={{
-            filter: 'blur(3px)',
-            zIndex: 10
-          }}
-        ></Snowfall> 
+        <SnowfallComponent plane='distant'></SnowfallComponent>
+        <SnowfallComponent plane='midground'></SnowfallComponent>
         <Terminal></Terminal>
-        <Snowfall
-          color={'#E3E3E3'}
-          speed={[1.5, 1.7]}
-          snowflakeCount={250}
-          radius={[1.5, 3.0]}
-          wind={[-0.5, 0.5]}
-          style={{
-            filter: 'blur(1.0px)',
-            zIndex: 30
-          }}
-        ></Snowfall> 
-        <Snowfall
-          color={'#E3E3E3'}
-          speed={[0.5, 0.7]}
-          snowflakeCount={50}
-          radius={[0.5, 1.5]}
-          wind={[-0.5, 0.5]}
-          style={{
-            filter: 'blur(1.0px)',
-            zIndex: 60
-          }}
-        ></Snowfall>
-        <div className='z-[40] absolute bottom-0 overflow-x-hidden w-screen'>
+        <SnowfallComponent plane='foreground'></SnowfallComponent>
+        <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
         </div>
       </main>
