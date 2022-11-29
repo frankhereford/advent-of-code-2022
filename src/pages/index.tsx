@@ -18,8 +18,10 @@ frank@advent-of-code $`
 
   const [content, setContent] = useState(defaultContent)
 
-  function print (line: string) {
-    setContent(c => c + `${line}` + '\n')
+  function print (line?: string) {
+    if (line == null) {
+      setContent(c => c + '‎' + '\n')
+    } else setContent(c => c + `${line}` + '\n')
   }
 
   useEffect(() => {
