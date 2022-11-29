@@ -15,16 +15,17 @@ const Home: NextPage = () => {
 frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
 Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 frank@advent-of-code $`
+
   const [content, setContent] = useState(defaultContent)
 
-  function printFn (line: string) {
+  function print (line: string) {
     setContent(c => c + `${line}` + '\n')
   }
 
   useEffect(() => {
     async function runSolution () {
       setContent(c => c + ' ' + invocation + '\n')
-      solution(printFn)
+      solution(print)
     }
     runSolution().catch(e => console.error(e))
   // eslint-disable-next-line react-hooks/exhaustive-deps
