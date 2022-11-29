@@ -1,3 +1,4 @@
+/* eslint-disable no-multiple-empty-lines */
 import { type NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -15,10 +16,12 @@ Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 frank@advent-of-code $`
   const [content, setContent] = useState(defaultContent)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [delay, setDelay] = useState(1000)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isPlaying] = useState(true)
+
+
+
+
+
+
 
   // * this is where you put your solution
   // ! this should be in its own component
@@ -34,8 +37,15 @@ frank@advent-of-code $`
       line += '\n'
     }
     setContent(c => c + `${line}` + '\n')
-    return line
   }
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     setContent(c => c + ' /usr/bin/perl -w ./pascal4lyfe.pl' + '\n')
