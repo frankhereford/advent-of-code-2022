@@ -6,21 +6,32 @@ import Image from 'next/image'
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
 import { useEffect, useState } from 'react'
-import { solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_00'
+import { problemStatement, solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_00'
+
+// * this wacky character is the Unicode "zero width space"
+// * it's a "blank" character that isn't whitespace.
+// * this "terminal" isn't actually a TTY ... 🙃
+const zeroWidthSpace = '\u200B'
 
 const Home: NextPage = () => {
   const date = new Date().toLocaleDateString('en-US')
 
   const defaultContent = `Last Login: ${date} on ttys002
 frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
+${zeroWidthSpace}
 Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
-frank@advent-of-code $`
+${zeroWidthSpace}
+frank@advent-of-code $ echo $PROBLEM_STATEMENT; echo;
+${zeroWidthSpace}
+${problemStatement}
+${zeroWidthSpace}
+frank@advent-of-code $ `
 
   const [content, setContent] = useState(defaultContent)
 
   function print (line?: string) {
     if (line == null) {
-      setContent(c => c + '‎' + '\n')
+      setContent(c => c + zeroWidthSpace + '\n')
     } else setContent(c => c + `${line}` + '\n')
   }
 
