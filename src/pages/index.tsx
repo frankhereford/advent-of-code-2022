@@ -38,6 +38,7 @@ frank@advent-of-code $`
   }
 
   useEffect(() => {
+    setContent(c => c + ' /usr/bin/perl -w ./pascal4lyfe.pl' + '\n')
     for (let i = 1; i <= 10; i++) {
       printPascalsTriangle(i)
     }
@@ -60,7 +61,7 @@ frank@advent-of-code $`
         </div>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal content={content} speed={4} variability={3}></Terminal>
+        <Terminal content={content} speed={3} variability={3}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
