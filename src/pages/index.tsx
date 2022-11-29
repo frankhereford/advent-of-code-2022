@@ -54,6 +54,7 @@ frank@advent-of-code $`
     for (let i = 1; i <= 10; i++) {
       printPascalsTriangle(i)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, ['just-once'])
 
   return (
