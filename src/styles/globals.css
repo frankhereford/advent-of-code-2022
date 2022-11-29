@@ -16,7 +16,7 @@ img.haze {
   left: -50%;
   height: 100%;
   opacity: 1;
-  background: url('/cloud_texture.webp') 0 0 repeat-x;
+  background: url(/cloud_texture.webp) 0 0 repeat-x;
   transition-timing-function: ease-in-out;
 }
 
