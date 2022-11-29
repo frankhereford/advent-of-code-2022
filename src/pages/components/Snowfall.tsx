@@ -37,7 +37,7 @@ export default function SnowfallComponent (props: Props) {
         <Snowfall
           color={'#E3E3E3'}
           speed={[0.5, 0.7]}
-          snowflakeCount={100}
+          snowflakeCount={50}
           radius={[0.5, 1.5]}
           wind={[-0.5, 0.5]}
           style={{

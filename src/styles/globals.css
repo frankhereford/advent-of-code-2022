@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-img.barn, img.haze {
+img.barn,
+img.haze {
   max-width: inherit;
   transform: translate3d(0, 0, 0);
 }
@@ -14,21 +15,14 @@ img.barn, img.haze {
   width: 4096px;
   left: -50%;
   height: 100%;
-  opacity: 1.0;
-  background: url('/cloud_texture.webp') 0 0 repeat-x;
+  opacity: 1;
+  background: url("/cloud_texture.webp") 0 0 repeat-x;
   transition-timing-function: ease-in-out;
 }
 
 @keyframes haze {
   000% { transform: translateX(0%); }
-  010% { transform: translateX(-5%); }
-  020% { transform: translateX(-15%); }
-  030% { transform: translateX(-18%); }
-  040% { transform: translateX(-10%); }
-  050% { transform: translateX(0%); }
-  060% { transform: translateX(10%); }
-  070% { transform: translateX(18%); }
-  080% { transform: translateX(15%); }
-  090% { transform: translateX(10%); }
+  025% { transform: translateX(50%); }
+  075% { transform: translateX(-50%); }
   100% { transform: translateX(0%); }
 }
