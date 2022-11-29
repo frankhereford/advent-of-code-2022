@@ -12,13 +12,13 @@ export const invocation = '/usr/bin/perl -w ./pascal4lyfe.pl'
 
 // * the entry point for the solution, taking one argument
 // * print is used to "print" a line to the "terminal"
-export function solution (print: (line: string) => void) {
+export async function solution (print: (line: string) => void) {
   for (let i = 1; i <= n; i++) {
-    printPascalsTriangle(print, i)
+    await printPascalsTriangle(print, i)
   }
 }
 
-function printPascalsTriangle (print: (line: string) => void, n: number) {
+async function printPascalsTriangle (print: (line: string) => void, n: number) {
   let line = ''
 
   for (let i = 0; i < n; i++) {

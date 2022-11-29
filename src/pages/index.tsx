@@ -25,7 +25,7 @@ frank@advent-of-code $`
   useEffect(() => {
     async function runSolution () {
       setContent(c => c + ' ' + invocation + '\n')
-      solution(print)
+      await solution(print)
     }
     runSolution().catch(e => console.error(e))
   // eslint-disable-next-line react-hooks/exhaustive-deps
