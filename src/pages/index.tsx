@@ -1,15 +1,11 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import { type NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
 
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
 
 const Home: NextPage = () => {
-
-          //<Image className='w-[2048px]' src="/cloud_texture.webp" alt="cloud haze" width='2048' height="2048" />
-  //  bg-[url("/cloud_texture.webp")] bg-repeat-x haze
-  // style={{animation: 'haze 10s linear infinite'}}
   return (
     <>
       <Head>
@@ -22,20 +18,19 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
         <div className='w-screen z-[0] absolute top-0 h-screen'>
-          <div id='haze' className='h-screen' style={{ position: 'relative', 'animation': 'haze 150s infinite' }}>
+          <div id='haze' className='h-screen' style={{ position: 'relative', animation: 'haze 150s infinite' }}>
           </div>
         </div>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal></Terminal>
+        <Terminal commands={[]}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
-
+export default Home
