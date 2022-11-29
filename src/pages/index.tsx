@@ -14,14 +14,14 @@ import { problemStatement, solution, invocation, terminalSpeed, terminalVariabil
 const zeroWidthSpace = '\u200B'
 
 const Home: NextPage = () => {
-  const date = new Date().toLocaleDateString('en-US')
-
-  const defaultContent = `Last Login: ${date} on ttys002
-frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
+  const date = new Date()
+  date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
+  const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
+frank@advent-of-code ` + '$' + ` echo; echo '$GIT_MSG $GIT_REPOSITORY'; echo;
 ${zeroWidthSpace}
-Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
+View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 ${zeroWidthSpace}
-frank@advent-of-code $ echo $PROBLEM_STATEMENT; echo;
+frank@advent-of-code $ echo; echo $PROBLEM_STATEMENT; echo;
 ${zeroWidthSpace}
 ${problemStatement}
 ${zeroWidthSpace}
