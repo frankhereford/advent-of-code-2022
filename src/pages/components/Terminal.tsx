@@ -39,32 +39,49 @@ export default function Terminal (props: Props) {
 
   useInterval(
     () => {
+      // figure out what text is new since we last were here
       const newText = getNewText(printedContentString, props.content)
 
+      // get out of dodge if we didn't get anything; non-op
       if (newText == null) return
       if (newText[0] == null) return
 
+      // we type one letter at a time
       const nextLetter = newText[0]
 
+      // we're going to be fussing with state, make a copy
       const localPresentationContent = _.cloneDeep(presentationContent)
 
+      // if we pulled a linefeed off the stack, we need to make a new element in the array
+      // which is map'd over to generate the content of the terminal
       if (nextLetter.includes('\n')) {
+        // here's that new array element
         localPresentationContent.push('')
+        // we're about to be done, so set the side effects this routine needs to touch
         setPresentationContent(localPresentationContent)
         setPrintedContentString(localPresentationContent.join('\n'))
+        // later gater
         return
       }
 
       // add the new letter to the end of the last line
       if (localPresentationContent.length > 0) {
+        // we're going to append to the end of the string of the last element
         localPresentationContent[localPresentationContent.length - 1] += nextLetter
+        // or we're going to make a new element if there isn't one
       } else localPresentationContent.push(nextLetter)
 
+      // we take in the controls for typing speed
       const variability = props.variability ?? 1.5
       const generalSpeed = props.speed ?? 4
+      // we use an exponential function to map the random parameter to the output speed
       setDelay(Math.exp(Math.random() * variability) * generalSpeed)
+      // set the expected side effects
       setPrintedContentString(localPresentationContent.join('\n'))
       setPresentationContent(localPresentationContent)
+
+      // ! 👇 💀 this is inane. lint hardcore!
+      // ? also, how on earth can i fix this?
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
       // @ts-ignore
       bottomRef.current?.scrollIntoView({ behavior: 'auto' })
@@ -72,6 +89,7 @@ export default function Terminal (props: Props) {
     isPlaying ? delay : null
   )
 
+  // red-button handler
   function close () {
     setIsShown(false)
   }
