@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react'
 
-interface commandType {
-  command: string
-  output: string
-}
 interface Props {
-  commands: commandType[]
+  content: string
   speed?: number
 }
 
 export default function Terminal (props: Props) {
   const [isShown, setIsShown] = useState(true)
 
-  const [commands, setCommands] = useState<commandType[]>([])
+  const [content, setContent] = useState('')
 
   useEffect(() => {
-    setCommands(props.commands)
-  }, [commands, props.commands])
+    setContent(props.content)
+  }, [props.content])
 
   function close () {
     setIsShown(false)
