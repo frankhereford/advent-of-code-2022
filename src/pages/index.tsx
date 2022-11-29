@@ -4,8 +4,7 @@ import Image from 'next/image'
 
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
-import { useInterval } from 'usehooks-ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Home: NextPage = () => {
   const date = new Date().toLocaleDateString('en-US')
@@ -18,14 +17,32 @@ frank@advent-of-code $`
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [delay, setDelay] = useState(1000)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPlaying] = useState(true)
 
-  useInterval(
-    () => {
-      setContent(c => c + 'Out, damn spot, out!\n')
-    },
-    isPlaying ? delay : null
-  )
+  // * this is where you put your solution
+  // ! this should be in its own component
+  function printPascalsTriangle (n: number) {
+    let line = ''
+
+    for (let i = 0; i < n; i++) {
+      let C = 1 // used to represent C(line, i)
+      for (let j = 1; j <= i; j++) {
+        line += String(C) + ' '
+        C = (C * (i - j)) / j
+      }
+      line += '\n'
+    }
+    setContent(c => c + `${line}` + '\n')
+    return line
+  }
+
+  useEffect(() => {
+    for (let i = 1; i <= 10; i++) {
+      printPascalsTriangle(i)
+    }
+  }, ['just-once'])
+
   return (
     <>
       <Head>
