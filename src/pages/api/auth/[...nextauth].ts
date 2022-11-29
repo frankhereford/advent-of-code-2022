@@ -1,30 +1,33 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
-import Auth0Provider from 'next-auth/providers/auth0'
+import NextAuth, { type NextAuthOptions } from 'next-auth'
 // Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
-import { env } from "../../../env/server.mjs";
-import { prisma } from "../../../server/db/client";
+import Auth0Provider from 'next-auth/providers/auth0'
+
+import { env } from '../../../env/server.mjs'
+import { prisma } from '../../../server/db/client'
+import type { PrismaClient } from '@prisma/client'
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    session({ session, user }) {
+    session ({ session, user }) {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (session.user) {
-        session.user.id = user.id;
+        session.user.id = user.id
       }
-      return session;
-    },
+      return session
+    }
   },
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as PrismaClient),
   providers: [
     Auth0Provider({
       clientId: env.AUTH0_CLIENT_ID,
       clientSecret: env.AUTH0_CLIENT_SECRET,
       issuer: env.AUTH0_ISSUER
-    }),
-  ],
-};
+    })
+  ]
+}
 
-export default NextAuth(authOptions);
+export default NextAuth(authOptions)
