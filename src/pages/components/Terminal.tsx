@@ -6,6 +6,7 @@ import _ from 'lodash'
 interface Props {
   content: string
   speed?: number
+  variability?: number
 }
 
 function getNewText (printed: string, content: string) {
@@ -31,7 +32,7 @@ export default function Terminal (props: Props) {
   const [presentationContent, setPresentationContent] = useState<string[]>([])
 
   // how fast the terminal should print
-  const [delay, setDelay] = useState(props.speed ?? 50)
+  const [delay, setDelay] = useState(50)
   // is the terminal currently printing, meaning is there a work queue
   const [isPlaying, setIsPlaying] = useState(true)
 
@@ -63,8 +64,8 @@ export default function Terminal (props: Props) {
         localPresentationContent[localPresentationContent.length - 1] += nextLetter
       } else localPresentationContent.push(nextLetter)
 
-      const variability = 1.5
-      const generalSpeed = 4
+      const variability = props.variability ?? 1.5
+      const generalSpeed = props.speed ?? 4
       setDelay(Math.exp(Math.random() * variability) * generalSpeed)
       setPrintedContentString(localPresentationContent.join('\n'))
       setPresentationContent(localPresentationContent)

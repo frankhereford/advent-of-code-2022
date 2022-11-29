@@ -30,7 +30,7 @@ frank@advent-of-code $`
         </div>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal content={content}></Terminal>
+        <Terminal content={content} speed={5} variability={4}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <div className='z-[30] absolute bottom-0 overflow-x-hidden w-screen'>
           <Image priority={true} className='w-[3292px] barn' src="/snowscape.webp" alt="red barn by a lake" width='3202' height="711" />
