@@ -33,7 +33,7 @@ frank@advent-of-code $`
   return (
     <>
       <Head>
-        <title>snowday</title>
+        <title>️Snowday!</title>
         <meta name="description" content="2022 Advent of Code Attempts" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
