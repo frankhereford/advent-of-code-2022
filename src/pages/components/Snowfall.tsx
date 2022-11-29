@@ -4,7 +4,7 @@ interface Props {
   plane: 'distant' | 'midground' | 'foreground'
 }
 
-export default function SnowfallComponent(props: Props) {
+export default function SnowfallComponent (props: Props) {
   return (
     <>
       {props.plane === 'distant' && (
@@ -19,7 +19,7 @@ export default function SnowfallComponent(props: Props) {
             zIndex: 10
           }}
         ></Snowfall>
-    )}
+      )}
       {props.plane === 'midground' && (
         <Snowfall
           color={'#E3E3E3'}
@@ -31,7 +31,7 @@ export default function SnowfallComponent(props: Props) {
             filter: 'blur(1.0px)',
             zIndex: 20
           }}
-        ></Snowfall> 
+        ></Snowfall>
       )}
       {props.plane === 'foreground' && (
         <Snowfall
