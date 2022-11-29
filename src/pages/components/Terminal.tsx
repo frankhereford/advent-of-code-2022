@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 import _ from 'lodash'
 
@@ -22,6 +22,7 @@ function getNewText (printed: string, content: string) {
 }
 
 export default function Terminal (props: Props) {
+  const bottomRef = useRef(null)
   const [isShown, setIsShown] = useState(true)
 
   // what is printed, as a string, not split into arrays
@@ -38,36 +39,57 @@ export default function Terminal (props: Props) {
 
   useInterval(
     () => {
+      // figure out what text is new since we last were here
       const newText = getNewText(printedContentString, props.content)
 
+      // get out of dodge if we didn't get anything; non-op
       if (newText == null) return
       if (newText[0] == null) return
 
+      // we type one letter at a time
       const nextLetter = newText[0]
 
+      // we're going to be fussing with state, make a copy
       const localPresentationContent = _.cloneDeep(presentationContent)
 
+      // if we pulled a linefeed off the stack, we need to make a new element in the array
+      // which is map'd over to generate the content of the terminal
       if (nextLetter.includes('\n')) {
+        // here's that new array element
         localPresentationContent.push('')
+        // we're about to be done, so set the side effects this routine needs to touch
         setPresentationContent(localPresentationContent)
         setPrintedContentString(localPresentationContent.join('\n'))
+        // later gater
         return
       }
 
       // add the new letter to the end of the last line
       if (localPresentationContent.length > 0) {
+        // we're going to append to the end of the string of the last element
         localPresentationContent[localPresentationContent.length - 1] += nextLetter
+        // or we're going to make a new element if there isn't one
       } else localPresentationContent.push(nextLetter)
 
+      // we take in the controls for typing speed
       const variability = props.variability ?? 1.5
       const generalSpeed = props.speed ?? 4
+      // we use an exponential function to map the random parameter to the output speed
       setDelay(Math.exp(Math.random() * variability) * generalSpeed)
+      // set the expected side effects
       setPrintedContentString(localPresentationContent.join('\n'))
       setPresentationContent(localPresentationContent)
+
+      // ! 👇 💀 this is inane. lint hardcore!
+      // ? also, how on earth can i fix this?
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+      // @ts-ignore
+      bottomRef.current?.scrollIntoView({ behavior: 'auto' })
     },
     isPlaying ? delay : null
   )
 
+  // red-button handler
   function close () {
     setIsShown(false)
   }
@@ -77,7 +99,7 @@ export default function Terminal (props: Props) {
   return (
     <>
       {isShown && (
-        <div className="overflow-hidden z-[40] absolute top-[5%] right-[5%] w-[70%] mx-auto drop-shadow-[10px_10px_15px_rgba(0,0,0,0.5)] ">
+        <div className="z-[40] absolute top-[5%] right-[5%] w-[70%] mx-auto drop-shadow-[10px_10px_15px_rgba(0,0,0,0.5)] ">
           <div className={'w-full shadow-2xl subpixel-antialiased rounded h-[70vh] ' + backgroundColor + ' border-black mx-auto'}>
             <div className="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
               <div className="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn" onClick={close}>
@@ -91,11 +113,12 @@ export default function Terminal (props: Props) {
               </div>
 
             </div>
-            <div className={'pl-1 pt-1 h-auto  text-green-200 font-mono text-xs '} id="console">
-              {presentationContent.map((line, index) => (
-                <p key={index} className="pb-1">{line}</p>
-              ))}
-            </div>
+              <div className={'overflow-auto pl-1 pt-1 h-[67vh] text-green-200 font-mono text-xs '} id="console">
+                {presentationContent.map((line, index) => (
+                  <p key={index} className="pb-1">{line}</p>
+                ))}
+              <div ref={bottomRef} />
+              </div>
           </div>
         </div>
       )}
