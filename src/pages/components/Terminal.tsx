@@ -1,19 +1,88 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react'
+import { useInterval } from 'usehooks-ts'
+import _ from 'lodash'
 
-export default function Terminal() {
-  const [isShown, setIsShown] = useState(true);
+interface Props {
+  content: string
+  speed?: number
+}
+
+function getNewText (printed: string, content: string) {
+  // eslint-disable-next-line no-useless-escape
+  let escapedPrinted = printed.replace(/\$/g, '\\$')
+  escapedPrinted = escapedPrinted.replace(/'/g, '\\\'')
+  const pattern = `^${escapedPrinted}([\\s\\S]*)`
+  const regex = new RegExp(pattern)
+  const results = regex.exec(content)
+  if (results == null) { return '' }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return results[1]
+}
+
+export default function Terminal (props: Props) {
+  const [isShown, setIsShown] = useState(true)
+
+  // what is printed, as a string, not split into arrays
+  const [printedContentString, setPrintedContentString] = useState('')
+  // the next character to add to what has been printed
+  const [nextCharacter, setNextCharacter] = useState('')
+  // the shown content, split into arrays line by line
+  const [presentationContent, setPresentationContent] = useState<string[]>([])
+
+  // how fast the terminal should print
+  const [delay, setDelay] = useState(props.speed ?? 50)
+  // is the terminal currently printing, meaning is there a work queue
+  const [isPlaying, setIsPlaying] = useState(true)
+
+  useInterval(
+    () => {
+      const newText = getNewText(printedContentString, props.content)
+
+      if (newText == null) {
+        setIsPlaying(false)
+        return
+      }
+
+      const localPresentationContent = _.cloneDeep(presentationContent)
+      if (newText[0] == null) {
+        setIsPlaying(false)
+        return
+      }
+      const nextLetter = newText[0]
+
+      if (nextLetter.includes('\n')) {
+        localPresentationContent.push('')
+        setPresentationContent(localPresentationContent)
+        setPrintedContentString(localPresentationContent.join('\n'))
+        return
+      }
+
+      // add the new letter to the end of the last line
+      if (localPresentationContent.length > 0) {
+        localPresentationContent[localPresentationContent.length - 1] += nextLetter
+      } else localPresentationContent.push(nextLetter)
+
+      const variability = 1.5
+      const generalSpeed = 4
+      setDelay(Math.exp(Math.random() * variability) * generalSpeed)
+      setPrintedContentString(localPresentationContent.join('\n'))
+      setPresentationContent(localPresentationContent)
+    },
+    isPlaying ? delay : null
+  )
 
   function close () {
-    setIsShown(false);
+    setIsShown(false)
   }
 
-  const date = new Date().toLocaleDateString("en-US")
   const backgroundColor = 'bg-[#000000bb]'
+
   return (
     <>
       {isShown && (
         <div className="z-[40] absolute top-[5%] right-[5%] w-[70%] mx-auto  drop-shadow-[10px_10px_15px_rgba(0,0,0,0.5)] ">
-          <div className={"w-full shadow-2xl subpixel-antialiased rounded h-[70vh] " + backgroundColor + " border-black mx-auto"}>
+          <div className={'w-full shadow-2xl subpixel-antialiased rounded h-[70vh] ' + backgroundColor + ' border-black mx-auto'}>
             <div className="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
               <div className="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn" onClick={close}>
               </div>
@@ -26,11 +95,10 @@ export default function Terminal() {
               </div>
 
             </div>
-            <div className={"pl-1 pt-1 h-auto  text-green-200 font-mono text-xs "} id="console">
-              <p className="pb-1">Last login: {date} on ttys002</p>
-              <p className="pb-1">frank@advent-of-code $ echo &quot;$GIT_MSG $GIT_REPOSITORY&quot;</p>
-              <p className="pb-1">Fork this on GitHub: <a target='_github' href='https://github.com/frankhereford/advent-of-code-2022'>https://github.com/frankhereford/advent-of-code-2022</a></p>
-              <p className="pb-1">frank@advent-of-code $</p>
+            <div className={'pl-1 pt-1 h-auto  text-green-200 font-mono text-xs '} id="console">
+              {presentationContent.map((line, index) => (
+                <p key={index} className="pb-1">{line}</p>
+              ))}
             </div>
           </div>
         </div>
