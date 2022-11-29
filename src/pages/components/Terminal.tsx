@@ -40,18 +40,12 @@ export default function Terminal (props: Props) {
     () => {
       const newText = getNewText(printedContentString, props.content)
 
-      if (newText == null) {
-        // setIsPlaying(false)
-        return
-      }
+      if (newText == null) return
+      if (newText[0] == null) return
+
+      const nextLetter = newText[0]
 
       const localPresentationContent = _.cloneDeep(presentationContent)
-
-      if (newText[0] == null) {
-        // setIsPlaying(false)
-        return
-      }
-      const nextLetter = newText[0]
 
       if (nextLetter.includes('\n')) {
         localPresentationContent.push('')
