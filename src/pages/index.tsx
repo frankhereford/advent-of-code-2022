@@ -9,16 +9,9 @@ const Home: NextPage = () => {
   const date = new Date().toLocaleDateString('en-US')
 
   const content = `Last Login: ${date} on ttys002
-frank@advent-of-code $ echo '$GIT_MSG $GIT_REPOSITORY';
+frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
 Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 frank@advent-of-code $`
-
-  /*
-          <p className="pb-1">Last login: {date} on ttys002</p>
-          <p className="pb-1">frank@advent-of-code $ echo &quot;$GIT_MSG $GIT_REPOSITORY&quot;</p>
-          <p className="pb-1">Fork this on GitHub: <a target='_github' href='https://github.com/frankhereford/advent-of-code-2022'>https://github.com/frankhereford/advent-of-code-2022</a></p>
-          <p className="pb-1">frank@advent-of-code $</p>
-  */
 
   return (
     <>

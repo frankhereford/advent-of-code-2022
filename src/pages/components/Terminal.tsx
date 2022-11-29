@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
+import _ from 'lodash'
 
 interface Props {
   content: string
@@ -8,40 +10,67 @@ interface Props {
 
 function getNewText (printed: string, content: string) {
   // eslint-disable-next-line no-useless-escape
-  // ! 💀 You have to work around `.` not matching newlines...
-  // ! JavaScript ... you are a mess.
-  const pattern = `^${printed}([\\s\\S]*)`
+  let escapedPrinted = printed.replace(/\$/g, '\\$')
+  escapedPrinted = escapedPrinted.replace(/'/g, '\\\'')
+  const pattern = `^${escapedPrinted}([\\s\\S]*)`
   const regex = new RegExp(pattern)
   const results = regex.exec(content)
+  if (results == null) { return '' }
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return results![0]
+  return results[1]
 }
 
 export default function Terminal (props: Props) {
   const [isShown, setIsShown] = useState(true)
 
-  const [printed, setPrinted] = useState('')
-  const [toPrint, setToPrint] = useState('')
-  const [shownContent, setShownContent] = useState<string[]>([])
+  // what is printed, as a string, not split into arrays
+  const [printedContentString, setPrintedContentString] = useState('')
+  // the next character to add to what has been printed
+  const [nextCharacter, setNextCharacter] = useState('')
+  // the shown content, split into arrays line by line
+  const [presentationContent, setPresentationContent] = useState<string[]>([])
 
-  const [delay] = useState(150)
-  const [isPlaying, setIsPlaying] = useState(false)
+  // how fast the terminal should print
+  const [delay, setDelay] = useState(props.speed ?? 50)
+  // is the terminal currently printing, meaning is there a work queue
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useInterval(
     () => {
-      console.log('tick')
+      const newText = getNewText(printedContentString, props.content)
+
+      if (newText == null) {
+        setIsPlaying(false)
+        return
+      }
+
+      const localPresentationContent = _.cloneDeep(presentationContent)
+      if (newText[0] == null) {
+        setIsPlaying(false)
+        return
+      }
+      const nextLetter = newText[0]
+
+      if (nextLetter.includes('\n')) {
+        localPresentationContent.push('')
+        setPresentationContent(localPresentationContent)
+        setPrintedContentString(localPresentationContent.join('\n'))
+        return
+      }
+
+      // add the new letter to the end of the last line
+      if (localPresentationContent.length > 0) {
+        localPresentationContent[localPresentationContent.length - 1] += nextLetter
+      } else localPresentationContent.push(nextLetter)
+
+      const variability = 1.5
+      const generalSpeed = 4
+      setDelay(Math.exp(Math.random() * variability) * generalSpeed)
+      setPrintedContentString(localPresentationContent.join('\n'))
+      setPresentationContent(localPresentationContent)
     },
     isPlaying ? delay : null
   )
-
-  useEffect(() => {
-    const newText = getNewText(printed, props.content)
-    console.log('newText: ', newText)
-
-    if (newText[0] == null) return
-
-    setToPrint(newText[0])
-  }, [printed, props.content])
 
   function close () {
     setIsShown(false)
@@ -67,7 +96,7 @@ export default function Terminal (props: Props) {
 
             </div>
             <div className={'pl-1 pt-1 h-auto  text-green-200 font-mono text-xs '} id="console">
-              {shownContent.map((line, index) => (
+              {presentationContent.map((line, index) => (
                 <p key={index} className="pb-1">{line}</p>
               ))}
             </div>
