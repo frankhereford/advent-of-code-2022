@@ -19,7 +19,7 @@ const Home: NextPage = () => {
   const defaultContent = `Last Login: ${date} on ttys002
 frank@advent-of-code ` + '$' + ` echo; echo '$GIT_MSG $GIT_REPOSITORY'; echo;
 ${zeroWidthSpace}
-Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
+View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 ${zeroWidthSpace}
 frank@advent-of-code $ echo; echo $PROBLEM_STATEMENT; echo;
 ${zeroWidthSpace}
