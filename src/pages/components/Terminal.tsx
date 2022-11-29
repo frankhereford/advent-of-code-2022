@@ -1,24 +1,52 @@
 import { useEffect, useState } from 'react'
+import { useInterval } from 'usehooks-ts'
 
 interface Props {
   content: string
   speed?: number
 }
 
+function getNewText (printed: string, content: string) {
+  // eslint-disable-next-line no-useless-escape
+  // ! 💀 You have to work around `.` not matching newlines...
+  // ! JavaScript ... you are a mess.
+  const pattern = `^${printed}([\\s\\S]*)`
+  const regex = new RegExp(pattern)
+  const results = regex.exec(content)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return results![0]
+}
+
 export default function Terminal (props: Props) {
   const [isShown, setIsShown] = useState(true)
 
-  const [content, setContent] = useState('')
+  const [printed, setPrinted] = useState('')
+  const [toPrint, setToPrint] = useState('')
+  const [shownContent, setShownContent] = useState<string[]>([])
+
+  const [delay] = useState(150)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  useInterval(
+    () => {
+      console.log('tick')
+    },
+    isPlaying ? delay : null
+  )
 
   useEffect(() => {
-    setContent(props.content)
-  }, [props.content])
+    const newText = getNewText(printed, props.content)
+    console.log('newText: ', newText)
+
+    if (newText[0] == null) return
+
+    setToPrint(newText[0])
+  }, [printed, props.content])
 
   function close () {
     setIsShown(false)
   }
 
-  const date = new Date().toLocaleDateString('en-US')
   const backgroundColor = 'bg-[#000000bb]'
 
   return (
@@ -39,10 +67,9 @@ export default function Terminal (props: Props) {
 
             </div>
             <div className={'pl-1 pt-1 h-auto  text-green-200 font-mono text-xs '} id="console">
-              <p className="pb-1">Last login: {date} on ttys002</p>
-              <p className="pb-1">frank@advent-of-code $ echo &quot;$GIT_MSG $GIT_REPOSITORY&quot;</p>
-              <p className="pb-1">Fork this on GitHub: <a target='_github' href='https://github.com/frankhereford/advent-of-code-2022'>https://github.com/frankhereford/advent-of-code-2022</a></p>
-              <p className="pb-1">frank@advent-of-code $</p>
+              {shownContent.map((line, index) => (
+                <p key={index} className="pb-1">{line}</p>
+              ))}
             </div>
           </div>
         </div>
