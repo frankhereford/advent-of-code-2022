@@ -21,7 +21,7 @@ frank@advent-of-code $`
 
 
   // * smaller is faster
-  const speed = 1
+  const speed = 2
   // * larger is more variable
   const variability = 3
 
