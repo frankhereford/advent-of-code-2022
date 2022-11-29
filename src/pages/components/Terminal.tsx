@@ -41,13 +41,14 @@ export default function Terminal (props: Props) {
       const newText = getNewText(printedContentString, props.content)
 
       if (newText == null) {
-        setIsPlaying(false)
+        // setIsPlaying(false)
         return
       }
 
       const localPresentationContent = _.cloneDeep(presentationContent)
+
       if (newText[0] == null) {
-        setIsPlaying(false)
+        // setIsPlaying(false)
         return
       }
       const nextLetter = newText[0]

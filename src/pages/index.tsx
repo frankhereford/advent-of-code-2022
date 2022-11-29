@@ -4,15 +4,28 @@ import Image from 'next/image'
 
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
+import { useInterval } from 'usehooks-ts'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
   const date = new Date().toLocaleDateString('en-US')
 
-  const content = `Last Login: ${date} on ttys002
+  const defaultContent = `Last Login: ${date} on ttys002
 frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
 Fork this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 frank@advent-of-code $`
+  const [content, setContent] = useState(defaultContent)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [delay, setDelay] = useState(1000)
+  const [isPlaying] = useState(true)
+
+  useInterval(
+    () => {
+      setContent(c => c + 'Out, damn spot, out!\n')
+    },
+    isPlaying ? delay : null
+  )
   return (
     <>
       <Head>
