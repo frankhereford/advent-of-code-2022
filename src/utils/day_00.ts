@@ -12,9 +12,9 @@ export const invocation = '/usr/bin/perl -w ./pascal_4_lyfe.pl'
 
 // * the entry point for the solution, taking one argument
 // * print is used to "print" a line to the "terminal"
-export async function solution (print: (line: string) => void) {
+export async function solution (print: (line?: string) => void) {
   for (let i = 1; i <= n; i++) {
-    print(' ') // blank line
+    print() // blank line
     print('n = ' + i.toString())
     await printPascalsTriangle(print, i)
     // eslint-disable-next-line promise/param-names
@@ -22,7 +22,7 @@ export async function solution (print: (line: string) => void) {
   }
 }
 
-async function printPascalsTriangle (print: (line: string) => void, n: number) {
+async function printPascalsTriangle (print: (line?: string) => void, n: number) {
   let line = ''
 
   for (let i = 0; i <= n; i++) {
