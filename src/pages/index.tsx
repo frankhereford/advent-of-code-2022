@@ -36,6 +36,8 @@ frank@advent-of-code $`
       }
       line += '\n'
     }
+    // * this is the `echo` function
+    // TODO figure out how to abstract this into its own file
     setContent(c => c + `${line}` + '\n')
   }
 
