@@ -21,14 +21,7 @@ img.barn, img.haze {
 
 @keyframes haze {
   000% { transform: translateX(0%); }
-  010% { transform: translateX(-5%); }
-  020% { transform: translateX(-15%); }
-  030% { transform: translateX(-18%); }
-  040% { transform: translateX(-10%); }
-  050% { transform: translateX(0%); }
-  060% { transform: translateX(10%); }
-  070% { transform: translateX(18%); }
-  080% { transform: translateX(15%); }
-  090% { transform: translateX(10%); }
+  025% { transform: translateX(50%); }
+  075% { transform: translateX(-50%); }
   100% { transform: translateX(0%); }
 }
