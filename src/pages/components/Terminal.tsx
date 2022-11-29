@@ -15,8 +15,6 @@ export default function Terminal (props: Props) {
   const [commands, setCommands] = useState<commandType[]>([])
 
   useEffect(() => {
-    const incomingCommandSet = new Set(props.commands)
-    const outgoingCommandSet = new Set(commands)
     setCommands(props.commands)
   }, [commands, props.commands])
 
