@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import Terminal from './components/Terminal'
 import SnowfallComponent from './components/Snowfall'
+import Clouds from './components/Clouds'
 import { useEffect, useState } from 'react'
 import { problemStatement, solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_00'
 
@@ -55,10 +56,7 @@ frank@advent-of-code $ `
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
-        <div className='w-screen z-[0] absolute top-0 h-screen'>
-          <div id='haze' className='h-screen' style={{ position: 'relative', animation: 'haze 150s infinite' }}>
-          </div>
-        </div>
+        <Clouds></Clouds>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
         <Terminal content={content} speed={terminalSpeed ?? 2} variability={terminalVariability ?? 3}></Terminal>
