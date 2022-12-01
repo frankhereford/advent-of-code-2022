@@ -8,7 +8,7 @@ import SnowfallComponent from './components/Snowfall'
 import Clouds from './components/Clouds'
 import Barn from './components/Barn'
 import { useEffect, useState } from 'react'
-import { problemStatement, solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_00'
+import { problemStatement, solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_01'
 
 // * this wacky character is the Unicode "zero width space"
 // * it's a "blank" character that isn't whitespace.
