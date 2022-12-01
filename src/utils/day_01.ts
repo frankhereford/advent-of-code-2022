@@ -10,7 +10,7 @@ export const terminalVariability = 0
 
 // * need to define this so the program introduces itself
 // ! Required
-export const problemStatement = 'Task: Figure out which elf\'s pack to raid for tasty snacks.\n\nNB: I\'ll only be printing every tenth debugging output line to make the terminal output more readable.'
+export const problemStatement = 'Task: Figure out which elves\' packs are best to raid for tasty snacks.\n\nNB: I\'ll only be printing every tenth debugging output line to make the terminal output more readable.'
 
 // * the invocation is just a joke 🤪
 /// * there's no perl running here... but it'd be a lot cooler if there was!
