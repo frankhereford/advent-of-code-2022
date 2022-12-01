@@ -22,6 +22,7 @@ const Home: NextPage = () => {
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
+    // ? can this be dynamic? 🤔
     if (makeDay === 0) { setDay(day00) }
     if (makeDay === 1) { setDay(day01) }
     setRender(r => r + 1)
