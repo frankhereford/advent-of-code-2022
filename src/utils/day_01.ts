@@ -21,7 +21,7 @@ export const invocation = '/usr/bin/postscript ./snacks4TheCrew.ps # 🖨️'
 // * print is used to "print" a line to the "terminal"
 // ! Required
 export async function solution (print: (line?: string) => void) {
-  print(findMostCalories(testInput))
+  print(findMostCalories(input))
 }
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
@@ -64,7 +64,7 @@ function findMostCalories (input: string) {
   elfObjects.sort((a, b) => b.calories - a.calories)
   console.log(elfObjects)
 
-  // ? I really don't understand how to do this right with arrays of unknown length
+  // ? 👇 I really don't understand how to do this right with arrays of unknown length
   // ? which is like the best thing about arrays! I'm not going to count up the input to
   // ? put a length on the array, am i? could i?
 
