@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 
 export default function Clouds (props: { opacity?: number, windChangeDelay?: number }) {
-  const [windChangeDelay] = useState(props.windChangeDelay ?? 20 * 1000)
+  const [windChangeDelay] = useState((props.windChangeDelay ?? 20) * 1000)
   const [transitionDuration] = useState(props.windChangeDelay ?? 20)
   const [cloudXLocation, setCloudXLocation] = useState(0)
   const imageWidth = 1440
