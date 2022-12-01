@@ -1,12 +1,34 @@
-/* eslint-disable @next/next/no-img-element */
-export default function Clouds (props: { opacity?: number, duration?: number }) {
-  const offset = 0
+import { useEffect, useState } from 'react'
+import { useInterval } from 'usehooks-ts'
+
+export default function Clouds (props: { opacity?: number, windChangeDelay?: number }) {
+  const [windChangeDelay] = useState(props.windChangeDelay ?? 20 * 1000)
+  const [transitionDuration] = useState(props.windChangeDelay ?? 20)
+  const [cloudXLocation, setCloudXLocation] = useState(0)
+  const imageWidth = 1440
+
+  function computeNewXLocation () {
+    setCloudXLocation(Math.floor(Math.random() * imageWidth * 2) - imageWidth)
+  }
+
+  // ? how do you do this correctly, there must be a better way
+  useEffect(() => {
+    setTimeout(computeNewXLocation, 1000)
+  }, [])
+
+  useInterval(
+    () => {
+      computeNewXLocation()
+    },
+    windChangeDelay
+  )
+
   return (
     <>
-      <div className='opacity-100' style={{ opacity: props.opacity ?? 20 }}>
-        <div className='bg-red-500 w-screen h-screen z-0 bg-repeat transition-background' style={{
-          transitionDuration: `${props.duration ?? 10}s`,
-          backgroundPosition: `top 0px left ${offset}px`,
+      <div style={{ opacity: (props.opacity ?? 20) * 0.01 }}>
+        <div className='w-screen h-screen z-0 bg-repeat transition-background' style={{
+          transitionDuration: `${transitionDuration}s`,
+          backgroundPosition: `top 0px left ${cloudXLocation}px`,
           backgroundImage: 'url(/cloud_tileable.webp)'
         }}>
         </div>
