@@ -17,7 +17,6 @@ function getNewText (printed: string, content: string) {
   const regex = new RegExp(pattern)
   const results = regex.exec(content)
   if (results == null) { return '' }
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return results[1]
 }
 
@@ -61,11 +60,11 @@ export default function Terminal (props: Props) {
         return
       }
 
-      // add the new letter to the end of the last line
+      // * add the new letter to the end of the last line
       if (localPresentationContent.length > 0) {
-        // we're going to append to the end of the string of the last element
+        // * we're going to append to the end of the string of the last element
         localPresentationContent[localPresentationContent.length - 1] += nextLetter
-        // or we're going to make a new element if there isn't one
+        // * or we're going to make a new element if there isn't one
       } else localPresentationContent.push(nextLetter)
 
       // * we take in the controls for typing speed
@@ -90,7 +89,7 @@ export default function Terminal (props: Props) {
     setIsShown(true)
   }, [props.content])
 
-  // red-button handler
+  // * red/close button handler
   function close () {
     setIsShown(false)
   }
