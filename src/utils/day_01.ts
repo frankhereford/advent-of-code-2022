@@ -31,20 +31,20 @@ function findMostCalories (input: string) {
   const lines = input.split('\n')
   // console.log(lines)
 
-  output = output + 'Parsing Input\nE: '
+  output = output + 'Parsing Input\nE0: '
   const elves: number[] = []
   let counter = 0
   for (let i = 0; i < lines.length; i++) {
     if (lines[i] === '') {
       // output = output + `\nNew Elf #${counter}\n`
+      counter++
       if ((counter % 10) === 0) {
         output = output + `\nE${counter}: `
       }
-      counter++
     } else {
       const lineCalories = parseInt(lines[i] ?? '0') ?? 0
       // output = output + `New snack for Elf #${counter} with ${lineCalories} calories.` + '\n'
-      if ((i % 10) === 0) {
+      if ((counter % 10) === 0) {
         output = output + '.'
       }
       elves[counter] = (elves[counter] ?? 0) + lineCalories
