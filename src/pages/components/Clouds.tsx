@@ -20,14 +20,16 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
   const imageWidth = 1440
 
   function computeNewXLocation () {
-    const newXLocation = randomBoxMillerTransform() * imageWidth - (imageWidth / 2) * (props.windChangeVariability ?? 1)
+    const newXLocation = Math.floor(randomBoxMillerTransform() * imageWidth - (imageWidth / 2) * (props.windChangeVariability ?? 1))
+    console.log('newXLocation', newXLocation)
     setCloudXLocation(newXLocation)
   }
 
   // ? how do you do this correctly, there must be a better way
   useEffect(() => {
     setTimeout(computeNewXLocation, 1000)
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, ['just-once'])
 
   useInterval(
     () => {
