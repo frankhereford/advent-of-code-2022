@@ -72,7 +72,7 @@ function findMostCalories (input: string) {
 
   const topThreeSnackmasters = elfObjects.slice(0, 3).map((elf) => elf.calories).reduce((partialSum, a) => partialSum + a, 0)
 
-  output = output + `\n⭐️The top three snackmasters have ${topThreeSnackmasters} calories between them.\n`
+  output = output + `\n⭐️The top three snack-masters have ${topThreeSnackmasters} calories between them.\n`
 
   // 👇 Naive solution, but it works (for part one, only though) 👇
   /*
@@ -91,5 +91,6 @@ function findMostCalories (input: string) {
   output = output + `\n⭐️Elf #${heaviestElf} has the most calories with ${heaviestAmount} calories.` + '\n'
   */
 
+  output = output + 'frank@advent-of-code $'
   return output
 }
