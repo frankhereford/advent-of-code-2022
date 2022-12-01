@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import AdventOfCode from './components/AdventOfCode'
 import day00 from '../utils/day_00'
+import day01 from '../utils/day_01'
 import { useState, createContext } from 'react'
 
 // ! this is repeated in the AdventOfCode.tsx component ..
@@ -16,7 +17,7 @@ interface day {
 export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
-  const [day, setDay] = useState<day>(day00)
+  const [day, setDay] = useState<day>(day01)
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
