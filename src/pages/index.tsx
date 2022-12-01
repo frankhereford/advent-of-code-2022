@@ -58,7 +58,7 @@ frank@advent-of-code $ `
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
-        <PuzzlePicker></PuzzlePicker>
+        <PuzzlePicker numberStars={0} spread={50} spinFactor={45}></PuzzlePicker>
         <Clouds opacity={25} windChangeDelay={15} windChangeVariability={1}></Clouds>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
