@@ -20,8 +20,6 @@ const Home: NextPage = () => {
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
-    console.log('makeDay input: ', makeDay)
-    console.log(typeof makeDay)
     if (makeDay === 0) { console.log('setting day to 0'); setDay(day00) }
     setRender(r => r + 1)
   }
