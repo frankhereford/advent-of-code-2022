@@ -21,7 +21,6 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
 
   function computeNewXLocation () {
     const newXLocation = Math.floor(randomBoxMillerTransform() * imageWidth - (imageWidth / 2) * (props.windChangeVariability ?? 1))
-    console.log('newXLocation', newXLocation)
     setCloudXLocation(newXLocation)
   }
 
