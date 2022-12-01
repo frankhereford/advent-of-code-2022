@@ -20,7 +20,7 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
   const imageWidth = 1440
 
   function computeNewXLocation () {
-    const newXLocation = randomBoxMillerTransform() * imageWidth - (imageWidth / 2) * (props.windChangeVariability ?? 1)
+    const newXLocation = Math.floor(randomBoxMillerTransform() * imageWidth - (imageWidth / 2) * (props.windChangeVariability ?? 1))
     setCloudXLocation(newXLocation)
   }
 
@@ -28,7 +28,7 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
   useEffect(() => {
     setTimeout(computeNewXLocation, 1000)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, ['just-once'])
 
   useInterval(
     () => {

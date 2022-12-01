@@ -1,70 +1,93 @@
-/* eslint-disable no-multiple-empty-lines */
-import { type NextPage } from 'next'
-import Head from 'next/head'
+import type { NextPage } from 'next'
+import NoSSR from 'react-no-ssr'
+import AdventOfCode from './components/AdventOfCode'
+// ! don't forget to set the number of stars! 2 more edits! ⭐️✨
+import day00 from '../utils/day_00'
+import day01 from '../utils/day_01'
+/*
+import day02 from '../utils/day_02'
+import day03 from '../utils/day_03'
+import day04 from '../utils/day_04'
+import day05 from '../utils/day_05'
+import day06 from '../utils/day_06'
+import day07 from '../utils/day_07'
+import day08 from '../utils/day_08'
+import day09 from '../utils/day_09'
+import day10 from '../utils/day_10'
+import day11 from '../utils/day_11'
+import day12 from '../utils/day_12'
+import day13 from '../utils/day_13'
+import day14 from '../utils/day_14'
+import day15 from '../utils/day_15'
+import day16 from '../utils/day_16'
+import day17 from '../utils/day_17'
+import day18 from '../utils/day_18'
+import day19 from '../utils/day_19'
+import day20 from '../utils/day_20'
+import day21 from '../utils/day_21'
+import day22 from '../utils/day_22'
+import day23 from '../utils/day_23'
+import day24 from '../utils/day_24'
+import day25 from '../utils/day_25'
+*/
 
+import { useState, createContext } from 'react'
 
-import Terminal from './components/Terminal'
-import SnowfallComponent from './components/Snowfall'
-import Clouds from './components/Clouds'
-import Barn from './components/Barn'
-import { useEffect, useState } from 'react'
-import { problemStatement, solution, invocation, terminalSpeed, terminalVariability } from '../utils/day_01'
+// TODO this is repeated in the AdventOfCode.tsx component ..
+interface day {
+  problemStatement: string
+  solution: (print: (line?: string) => void) => Promise<void>
+  invocation: string
+  terminalSpeed?: number
+  terminalVariability?: number
+}
 
-// * this wacky character is the Unicode "zero width space"
-// * it's a "blank" character that isn't whitespace.
-// * this "terminal" isn't actually a TTY ... 🙃
-const zeroWidthSpace = '\u200B'
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
-  const date = new Date()
-  date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
-  const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
-frank@advent-of-code ` + '$' + ` echo; echo '$GIT_MSG $GIT_REPOSITORY'; echo;
-${zeroWidthSpace}
-View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
-${zeroWidthSpace}
-frank@advent-of-code $ echo; echo $PROBLEM_STATEMENT; echo;
-${zeroWidthSpace}
-${problemStatement}
-${zeroWidthSpace}
-frank@advent-of-code $ `
+  const [day, setDay] = useState<day>(day01)
+  const [render, setRender] = useState(0)
 
-  const [content, setContent] = useState(defaultContent)
-
-  function print (line?: string) {
-    if (line == null) {
-      setContent(c => c + zeroWidthSpace + '\n')
-    } else setContent(c => c + `${line}` + '\n')
+  function makeDay (makeDay: number) {
+    // ? can this be dynamic? 🤔
+    if (makeDay === 0) { setDay(day00) }
+    if (makeDay === 1) { setDay(day01) }
+    /*
+    if (makeDay === 2) { setDay(day02) }
+    if (makeDay === 3) { setDay(day03) }
+    if (makeDay === 4) { setDay(day04) }
+    if (makeDay === 5) { setDay(day05) }
+    if (makeDay === 6) { setDay(day06) }
+    if (makeDay === 7) { setDay(day07) }
+    if (makeDay === 8) { setDay(day08) }
+    if (makeDay === 9) { setDay(day09) }
+    if (makeDay === 10) { setDay(day10) }
+    if (makeDay === 11) { setDay(day11) }
+    if (makeDay === 12) { setDay(day12) }
+    if (makeDay === 13) { setDay(day13) }
+    if (makeDay === 14) { setDay(day14) }
+    if (makeDay === 15) { setDay(day15) }
+    if (makeDay === 16) { setDay(day16) }
+    if (makeDay === 17) { setDay(day17) }
+    if (makeDay === 18) { setDay(day18) }
+    if (makeDay === 19) { setDay(day19) }
+    if (makeDay === 20) { setDay(day20) }
+    if (makeDay === 21) { setDay(day21) }
+    if (makeDay === 22) { setDay(day22) }
+    if (makeDay === 23) { setDay(day23) }
+    if (makeDay === 24) { setDay(day24) }
+    if (makeDay === 25) { setDay(day25) }
+    */
+    setRender(r => r + 1)
   }
 
-  useEffect(() => {
-    async function runSolution () {
-      setContent(c => c + ' ' + invocation + '\n')
-      await solution(print)
-    }
-    runSolution().catch(e => console.error(e))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, ['just-once'])
-
   return (
-    <>
-      <Head>
-        <title>️Snowday!</title>
-        <meta name="description" content="2022 Advent of Code Attempts" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
-        <Clouds opacity={25} windChangeDelay={15} windChangeVariability={1}></Clouds>
-        <SnowfallComponent plane='distant'></SnowfallComponent>
-        <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal content={content} speed={terminalSpeed ?? 2} variability={terminalVariability ?? 3}></Terminal>
-        <SnowfallComponent plane='foreground'></SnowfallComponent>
-        <Barn></Barn>
-      </main>
-    </>
+    <DayPicker.Provider value={makeDay}>
+      <NoSSR>
+        <AdventOfCode day={day} stars={1} reRender={render} />
+      </NoSSR>
+    </DayPicker.Provider>
   )
 }
 

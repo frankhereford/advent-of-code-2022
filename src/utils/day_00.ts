@@ -5,23 +5,23 @@ import { sleep, sleepRandom } from './helpers'
 const n = 10
 
 // ! Required: These variables define the typing speed and variability in speed on the "terminal"
-export const terminalSpeed = 1
-export const terminalVariability = 3
+const terminalSpeed = 1
+const terminalVariability = 3
 
 // * need to define this so the program introduces itself
 // ! Required
-export const problemStatement = `Task: Print Pascal's triangle to the terminal n times, each time printing n rows.
+const problemStatement = `Task: Print Pascal's triangle to the terminal n times, each time printing n rows.
 Let n = ${n}. Good luck!`
 
 // * the invocation is just a joke 🤪
 /// * there's no perl running here... but it'd be a lot cooler if there was!
 // ! Required
-export const invocation = `/usr/bin/perl -w ./pascal_4_lyfe.pl --rows ${n}`
+const invocation = `/usr/bin/perl -w ./pascal_4_lyfe.pl --rows ${n}`
 
 // * the entry point for the solution, taking one argument
 // * print is used to "print" a line to the "terminal"
 // ! Required
-export async function solution (print: (line?: string) => void) {
+async function solution (print: (line?: string) => void) {
   for (let i = 1; i <= n; i++) {
     print() // blank line
     print('n = ' + i.toString())
@@ -47,3 +47,13 @@ async function printPascalsTriangle (print: (line?: string) => void, n: number) 
   }
   return line
 }
+
+const day = {
+  problemStatement,
+  solution,
+  invocation,
+  terminalSpeed,
+  terminalVariability
+}
+
+export default day
