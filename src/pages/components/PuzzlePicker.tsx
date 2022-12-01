@@ -60,7 +60,6 @@ export default function PuzzlePicker (props: { numberStars: number, spread?: num
         </a>
       </div>
       <div ref={hoverRef} className={
-        // (isHover ? 'grid' : '') +
         'z-[100] transition-all duration-1000 absolute top-[5%] left-[3%] w-[18%]'
       }>
         {Array.from(Array(props.numberStars).keys()).map((index) => {
