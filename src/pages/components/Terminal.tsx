@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 import _ from 'lodash'
 
@@ -85,6 +85,10 @@ export default function Terminal (props: Props) {
     },
     isPlaying ? delay : null
   )
+
+  useEffect(() => {
+    setIsShown(true)
+  }, [props.content])
 
   // red-button handler
   function close () {
