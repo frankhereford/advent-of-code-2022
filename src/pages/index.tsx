@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 
   return (
     <DayPicker.Provider value={makeDay}>
-      <AdventOfCode day={day} stars={10} reRender={render} />
+      <AdventOfCode day={day} stars={1} reRender={render} />
     </DayPicker.Provider>
   )
 }
