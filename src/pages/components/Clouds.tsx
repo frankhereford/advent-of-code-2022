@@ -29,7 +29,7 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
         <div className='w-screen h-screen z-0 bg-repeat transition-background' style={{
           transitionDuration: `${transitionDuration}s`,
           backgroundPosition: `top 0px left ${cloudXLocation}px`,
-          backgroundImage: 'url(/cloud_tileable.webp)'
+          backgroundImage: 'url(/clouds.webp)'
         }}>
         </div>
       </div>
