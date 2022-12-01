@@ -36,22 +36,27 @@ ${zeroWidthSpace}
 frank@advent-of-code $ `
 
   const [content, setContent] = useState(defaultContent)
-
-  function print (line?: string) {
-    if (line == null) {
-      setContent(c => c + zeroWidthSpace + '\n')
-    } else setContent(c => c + `${line}` + '\n')
-  }
+  const [firstTime, setFirstTime] = useState(true)
 
   useEffect(() => {
     async function runSolution () {
-      setContent(c => c + ' ' + props.day?.invocation + '\n')
+      if (firstTime) {
+        setContent(c => c + ' ' + props.day?.invocation + '\n')
+        setFirstTime(false)
+      } else {
+        setContent(c => c + '\n' + 'echo; echo $PROBLEM_STATEMENT; echo;\n' + props.day?.problemStatement + '\n' + 'frank@advent-of-code $ ' + props.day?.invocation + '\n')
+      }
       await props.day?.solution(print)
     }
     runSolution().catch(e => console.error(e))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.day, props.reRender])
 
+  function print (line?: string) {
+    if (line == null) {
+      setContent(c => c + zeroWidthSpace + '\n')
+    } else setContent(c => c + `${line}` + '\n')
+  }
   return (
     <>
       <Head>
