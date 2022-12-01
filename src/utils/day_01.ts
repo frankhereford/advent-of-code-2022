@@ -21,7 +21,7 @@ export const invocation = '/usr/bin/postscript ./snacks4TheCrew.ps # 🖨️'
 // * print is used to "print" a line to the "terminal"
 // ! Required
 export async function solution (print: (line?: string) => void) {
-  print(findMostCalories(input))
+  print(findMostCalories(testInput))
 }
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
@@ -37,8 +37,8 @@ function findMostCalories (input: string) {
   for (let i = 0; i < lines.length; i++) {
     if (lines[i] === '') {
       // output = output + `\nNew Elf #${counter}\n`
-      if ((i % 10) === 0) {
-        output = output + '\nE: '
+      if ((counter % 10) === 0) {
+        output = output + `\nE${counter}: `
       }
       counter++
     } else {
@@ -51,8 +51,31 @@ function findMostCalories (input: string) {
     }
   }
 
-  output = output + '\n'
+  interface elf {
+    id: number
+    calories: number
+  }
 
+  const elfObjects: elf[] = []
+
+  for (let i = 0; i < elves.length; i++) {
+    elfObjects.push({ id: i, calories: elves[i] ?? 0 })
+  }
+  elfObjects.sort((a, b) => b.calories - a.calories)
+  console.log(elfObjects)
+
+  // ? I really don't understand how to do this right with arrays of unknown length
+  // ? which is like the best thing about arrays! I'm not going to count up the input to
+  // ? put a length on the array, am i? could i?
+
+  output = output + `\n⭐️Elf #${elfObjects[0]!.id} has the most calories with ${elfObjects[0]!.calories} calories.` + '\n'
+
+  const topThreeSnackmasters = elfObjects.slice(0, 3).map((elf) => elf.calories).reduce((partialSum, a) => partialSum + a, 0)
+
+  output = output + `\n⭐️The top three snackmasters have ${topThreeSnackmasters} calories between them.\n`
+
+  // 👇 Naive solution, but it works (for part one, only though) 👇
+  /*
   let heaviestElf = 0
   let heaviestAmount = 0
   for (let i = 0; i < elves.length; i++) {
@@ -66,6 +89,7 @@ function findMostCalories (input: string) {
     }
   }
   output = output + `\n⭐️Elf #${heaviestElf} has the most calories with ${heaviestAmount} calories.` + '\n'
+  */
 
   return output
 }
