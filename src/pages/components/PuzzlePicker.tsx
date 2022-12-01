@@ -47,7 +47,7 @@ export default function PuzzlePicker (props: { numberStars: number, spread?: num
       newStarPositions.push(starPositionStyle(i))
     }
     setStarPositions(newStarPositions)
-  }, [isHover, props.numberStars, props.spread])
+  }, [isHover, props.numberStars, props.spinFactor, props.spread])
 
   return (
     <>
