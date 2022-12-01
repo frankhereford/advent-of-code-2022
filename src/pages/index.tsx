@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
+// ! don't forget to set the number of stars! 2 more edits! ⭐️✨
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
 /*
@@ -32,7 +33,7 @@ import day25 from '../utils/day_25'
 
 import { useState, createContext } from 'react'
 
-// ! this is repeated in the AdventOfCode.tsx component ..
+// TODO this is repeated in the AdventOfCode.tsx component ..
 interface day {
   problemStatement: string
   solution: (print: (line?: string) => void) => Promise<void>
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
   return (
     <DayPicker.Provider value={makeDay}>
       <NoSSR>
-        <AdventOfCode day={day} stars={2} reRender={render} />
+        <AdventOfCode day={day} stars={1} reRender={render} />
       </NoSSR>
     </DayPicker.Provider>
   )

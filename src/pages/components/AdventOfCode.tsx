@@ -12,7 +12,7 @@ import Barn from './Barn'
 // * this "terminal" isn't actually a TTY ... 🙃
 const zeroWidthSpace = '\u200B'
 
-// ! this is repeated in the index.tsx page
+// TODO this is repeated in the index.tsx page
 interface day {
   problemStatement: string
   solution: (print: (line?: string) => void) => Promise<void>
