@@ -31,7 +31,7 @@ View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 ${zeroWidthSpace}
 frank@advent-of-code $ echo; echo $PROBLEM_STATEMENT; echo;
 ${zeroWidthSpace}
-${props.day.problemStatement}
+${props.day?.problemStatement}
 ${zeroWidthSpace}
 frank@advent-of-code $ `
 
@@ -45,8 +45,8 @@ frank@advent-of-code $ `
 
   useEffect(() => {
     async function runSolution () {
-      setContent(c => c + ' ' + props.day.invocation + '\n')
-      await props.day.solution(print)
+      setContent(c => c + ' ' + props.day?.invocation + '\n')
+      await props.day?.solution(print)
     }
     runSolution().catch(e => console.error(e))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +67,7 @@ frank@advent-of-code $ `
         <Clouds opacity={25} windChangeDelay={15} windChangeVariability={1}></Clouds>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
-        <Terminal content={content} speed={props.day.terminalSpeed ?? 2} variability={props.day.terminalVariability ?? 3}></Terminal>
+        <Terminal content={content} speed={props.day?.terminalSpeed ?? 2} variability={props.day?.terminalVariability ?? 3}></Terminal>
         <SnowfallComponent plane='foreground'></SnowfallComponent>
         <Barn></Barn>
       </main>
