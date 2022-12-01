@@ -22,7 +22,8 @@ const Home: NextPage = () => {
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
-    if (makeDay === 0) { console.log('setting day to 0'); setDay(day00) }
+    if (makeDay === 0) { setDay(day00) }
+    if (makeDay === 1) { setDay(day01) }
     setRender(r => r + 1)
   }
 
