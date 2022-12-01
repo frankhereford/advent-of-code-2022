@@ -27,6 +27,7 @@ export default function Clouds (props: { opacity?: number, windChangeDelay?: num
   // ? how do you do this correctly, there must be a better way
   useEffect(() => {
     setTimeout(computeNewXLocation, 1000)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useInterval(
