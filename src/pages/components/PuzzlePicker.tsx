@@ -7,6 +7,7 @@ export default function PuzzlePicker (props: { numberStars: number, spread?: num
   const [githubLinkShown, setGithubLinkShown] = useState(false)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
+
   interface starStyle {
     top: string
     left: string
