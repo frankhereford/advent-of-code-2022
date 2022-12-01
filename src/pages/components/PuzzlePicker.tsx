@@ -57,7 +57,7 @@ export default function PuzzlePicker (props: { numberStars: number, spread?: num
       }>
         {Array.from(Array(props.numberStars).keys()).map((index) => {
           return (
-            <div key={index} className='absolute transition-all duration-1000' style={starPositions?.[index] ?? {}}>
+            <div key={index} className='absolute transition-all duration-1000 cursor-pointer' style={starPositions?.[index] ?? {}}>
               <Star day={(index + 1).toString()} isHover={isHover}></Star>
             </div>
           )
