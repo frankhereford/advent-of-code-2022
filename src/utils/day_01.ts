@@ -5,22 +5,22 @@ import { input, testInput } from './day_01_input'
 // * input parameters from the AoC website for the puzzle
 
 // ! Required: These variables define the typing speed and variability in speed on the "terminal"
-export const terminalSpeed = 0.1
-export const terminalVariability = 0
+const terminalSpeed = 0.1
+const terminalVariability = 0
 
 // * need to define this so the program introduces itself
 // ! Required
-export const problemStatement = 'Task: Figure out which elves\' packs are best to raid for tasty snacks.\n\nNB: I\'ll only be printing every tenth debugging output line to make the terminal output more readable.'
+const problemStatement = 'Task: Figure out which elves\' packs are best to raid for tasty snacks.\n\nNB: I\'ll only be printing every tenth debugging output line to make the terminal output more readable.'
 
 // * the invocation is just a joke 🤪
 /// * there's no perl running here... but it'd be a lot cooler if there was!
 // ! Required
-export const invocation = '/usr/bin/postscript ./snacks4TheCrew.ps # 🖨️'
+const invocation = '/usr/bin/postscript ./snacks4TheCrew.ps # 🖨️'
 
 // * the entry point for the solution, taking one argument
 // * print is used to "print" a line to the "terminal"
 // ! Required
-export async function solution (print: (line?: string) => void) {
+async function solution (print: (line?: string) => void) {
   print(findMostCalories(input))
 }
 
@@ -94,3 +94,13 @@ function findMostCalories (input: string) {
   output = output + 'frank@advent-of-code $'
   return output
 }
+
+const day = {
+  problemStatement,
+  solution,
+  invocation,
+  terminalSpeed,
+  terminalVariability
+}
+
+export default day
