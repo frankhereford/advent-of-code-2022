@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
@@ -27,7 +28,9 @@ const Home: NextPage = () => {
 
   return (
     <DayPicker.Provider value={makeDay}>
-      <AdventOfCode day={day} stars={1} reRender={render} />
+      <NoSSR>
+        <AdventOfCode day={day} stars={1} reRender={render} />
+      </NoSSR>
     </DayPicker.Provider>
   )
 }
