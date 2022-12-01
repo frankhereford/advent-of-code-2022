@@ -95,6 +95,7 @@ function findMostCalories (input: string) {
   return output
 }
 
+// TODO really need to figure out global typing
 const day = {
   problemStatement,
   solution,
