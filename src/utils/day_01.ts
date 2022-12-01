@@ -62,7 +62,7 @@ function findMostCalories (input: string) {
     elfObjects.push({ id: i, calories: elves[i] ?? 0 })
   }
   elfObjects.sort((a, b) => b.calories - a.calories)
-  console.log(elfObjects)
+  // console.log(elfObjects)
 
   // ? 👇 I really don't understand how to do this right with arrays of unknown length
   // ? which is like the best thing about arrays! I'm not going to count up the input to
