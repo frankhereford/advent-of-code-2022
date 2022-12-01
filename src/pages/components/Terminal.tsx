@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 import _ from 'lodash'
 
@@ -25,42 +25,39 @@ export default function Terminal (props: Props) {
   const bottomRef = useRef(null)
   const [isShown, setIsShown] = useState(true)
 
-  // what is printed, as a string, not split into arrays
+  // * what is printed, as a string, not split into arrays
   const [printedContentString, setPrintedContentString] = useState('')
-  // the next character to add to what has been printed
-  const [nextCharacter, setNextCharacter] = useState('')
-  // the shown content, split into arrays line by line
+  // * the shown content, split into arrays line by line
   const [presentationContent, setPresentationContent] = useState<string[]>([])
 
-  // how fast the terminal should print
+  // * how fast the terminal should print
   const [delay, setDelay] = useState(50)
-  // is the terminal currently printing, meaning is there a work queue
+  // * is the terminal currently printing, meaning is there a work queue
   const [isPlaying, setIsPlaying] = useState(true)
 
   useInterval(
     () => {
-      // figure out what text is new since we last were here
+      // * figure out what text is new since we last were here
       const newText = getNewText(printedContentString, props.content)
 
-      // get out of dodge if we didn't get anything; non-op
+      // * get out of dodge if we didn't get anything; non-op
       if (newText == null) return
       if (newText[0] == null) return
 
-      // we type one letter at a time
+      // * we type one letter at a time
       const nextLetter = newText[0]
 
-      // we're going to be fussing with state, make a copy
+      // * we're going to be fussing with state, make a copy
       const localPresentationContent = _.cloneDeep(presentationContent)
 
-      // if we pulled a linefeed off the stack, we need to make a new element in the array
-      // which is map'd over to generate the content of the terminal
+      // * if we pulled a linefeed off the stack, we need to make a new element in the array
+      // * which is map'd over to generate the content of the terminal
       if (nextLetter.includes('\n')) {
-        // here's that new array element
+        // * here's that new array element
         localPresentationContent.push('')
-        // we're about to be done, so set the side effects this routine needs to touch
+        // * we're about to be done, so set the side effects this routine needs to touch
         setPresentationContent(localPresentationContent)
         setPrintedContentString(localPresentationContent.join('\n'))
-        // later gater
         return
       }
 
@@ -71,12 +68,12 @@ export default function Terminal (props: Props) {
         // or we're going to make a new element if there isn't one
       } else localPresentationContent.push(nextLetter)
 
-      // we take in the controls for typing speed
+      // * we take in the controls for typing speed
       const variability = props.variability ?? 1.5
       const generalSpeed = props.speed ?? 4
-      // we use an exponential function to map the random parameter to the output speed
+      // * we use an exponential function to map the random parameter to the output speed
       setDelay(Math.exp(Math.random() * variability) * generalSpeed)
-      // set the expected side effects
+      // * set the expected side effects
       setPrintedContentString(localPresentationContent.join('\n'))
       setPresentationContent(localPresentationContent)
 
