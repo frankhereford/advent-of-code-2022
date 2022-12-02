@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
-// ! don't forget to set the number of stars! 2 more edits! ⭐️✨
+// ! don't forget to set the number of stars! 3 more edits! ⭐️✨
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
-/*
 import day02 from '../utils/day_02'
+/*
 import day03 from '../utils/day_03'
 import day04 from '../utils/day_04'
 import day05 from '../utils/day_05'
@@ -46,13 +46,14 @@ interface day {
 export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
-  const [day, setDay] = useState<day>(day01)
+  const [day, setDay] = useState<day>(day02)
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
     // ? can this be dynamic? 🤔
     if (makeDay === 0) { setDay(day00) }
     if (makeDay === 1) { setDay(day01) }
+    if (makeDay === 2) { setDay(day02) }
     /*
     if (makeDay === 2) { setDay(day02) }
     if (makeDay === 3) { setDay(day03) }
@@ -85,7 +86,7 @@ const Home: NextPage = () => {
   return (
     <DayPicker.Provider value={makeDay}>
       <NoSSR>
-        <AdventOfCode day={day} stars={1} reRender={render} />
+        <AdventOfCode day={day} stars={2} reRender={render} />
       </NoSSR>
     </DayPicker.Provider>
   )
