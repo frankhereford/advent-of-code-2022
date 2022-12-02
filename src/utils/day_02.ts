@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_02_input'
 import { append } from './helpers'
@@ -117,6 +116,7 @@ function scoreRPS (input: string) {
     const playScore = plays[myPlay] ?? 0
     const outcomeScore = scoreGame(letters[0], myPlay)
     if (index % 100 === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       output = append(output, `Round ${index}: They play ${letters[0]}/${shapeMap[letters[0]]!}, I need to ${outcomeMap[letters[1]]!}, so I play ${myPlay}/${shapeMap[myPlay]!}. Scores: ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}`)
     }
     const score = playScore + outcomeScore
@@ -124,7 +124,7 @@ function scoreRPS (input: string) {
   })
 
   const totalScorePartTwo = partTwoScores.reduce((a, b) => a + b, 0)
-  output = append(output, `⭐️ Total score part two: ${totalScorePartTwo}!`, true)
+  output = append(output, `⭐️ Total score part two: ${totalScorePartTwo}`, true)
 
   output = append(output, 'frank@advent-of-code $', true)
   return output
