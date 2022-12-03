@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next'
 import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
-// ! don't forget to set the number of stars! 3 more edits! ⭐️✨
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
 import day02 from '../utils/day_02'
-/*
 import day03 from '../utils/day_03'
 import day04 from '../utils/day_04'
 import day05 from '../utils/day_05'
@@ -29,7 +28,6 @@ import day22 from '../utils/day_22'
 import day23 from '../utils/day_23'
 import day24 from '../utils/day_24'
 import day25 from '../utils/day_25'
-*/
 
 import { useState, createContext } from 'react'
 
@@ -46,6 +44,9 @@ interface day {
 export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
+  // * Number of stars to render
+  const stars = 2
+  // * Default day to load           👇
   const [day, setDay] = useState<day>(day02)
   const [render, setRender] = useState(0)
 
@@ -53,8 +54,6 @@ const Home: NextPage = () => {
     // ? can this be dynamic? 🤔
     if (makeDay === 0) { setDay(day00) }
     if (makeDay === 1) { setDay(day01) }
-    if (makeDay === 2) { setDay(day02) }
-    /*
     if (makeDay === 2) { setDay(day02) }
     if (makeDay === 3) { setDay(day03) }
     if (makeDay === 4) { setDay(day04) }
@@ -79,14 +78,13 @@ const Home: NextPage = () => {
     if (makeDay === 23) { setDay(day23) }
     if (makeDay === 24) { setDay(day24) }
     if (makeDay === 25) { setDay(day25) }
-    */
     setRender(r => r + 1)
   }
 
   return (
     <DayPicker.Provider value={makeDay}>
       <NoSSR>
-        <AdventOfCode day={day} stars={2} reRender={render} />
+        <AdventOfCode day={day} stars={stars} reRender={render} />
       </NoSSR>
     </DayPicker.Provider>
   )

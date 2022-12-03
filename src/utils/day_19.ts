@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { input, testInput } from './day_03_input'
+import { input, testInput } from './day_19_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
 
-const problemStatement = 'Day 3 task: Introduce the tragedy..'
+const problemStatement = 'Day 19 task: Introduce the tragedy..'
 const invocation = '️/legacy/bin/shakespeare fairVerona.script'
 
 async function solution (print: (line?: string | null) => void) {
