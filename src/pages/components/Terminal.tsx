@@ -119,12 +119,14 @@ export default function Terminal (props: Props) {
               </div>
 
             </div>
-              <div className={'overflow-auto pl-1 pt-1 h-[67vh] text-green-200 font-mono text-xs '} id="console">
+            <div className={'overflow-auto pl-1 pt-1 h-[67vh] transition-all text-green-200 duration-[5000ms] font-mono text-xs  '} id="console">
                 {presentationContent.map((line, index) => (
                   <p key={index} className="pb-1">
-                    {line}
+                    <span className='fading'>
+                      {line}
+                    </span>
                     {index === presentationContent.length - 1 && (
-                      <span className='blink'> █</span>
+                      <span className='blink text-green-200'> █</span>
                     )}
                   </p>
                 ))}
