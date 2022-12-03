@@ -21,7 +21,7 @@ interface OutcomeMap {
 }
 
 const outcomeMap: OutcomeMap = {
-  X: 'loss',
+  X: 'lose',
   Y: 'draw',
   Z: 'win'
 }
@@ -60,23 +60,23 @@ const backwardsShapeMap: backMap = {
 }
 
 function scoreGame (them: string, me: string) {
-  const loss = 0
+  const lose = 0
   const draw = 3
   const win = 6
 
   if (shapeMap[them] === shapeMap[me]) return draw
   if (shapeMap[them] === 'rock' && shapeMap[me] === 'paper') return win
-  if (shapeMap[them] === 'rock' && shapeMap[me] === 'scissors') return loss
-  if (shapeMap[them] === 'scissors' && shapeMap[me] === 'paper') return loss
+  if (shapeMap[them] === 'rock' && shapeMap[me] === 'scissors') return lose
+  if (shapeMap[them] === 'scissors' && shapeMap[me] === 'paper') return lose
   if (shapeMap[them] === 'scissors' && shapeMap[me] === 'rock') return win
   if (shapeMap[them] === 'paper' && shapeMap[me] === 'scissors') return win
-  if (shapeMap[them] === 'paper' && shapeMap[me] === 'rock') return loss
+  if (shapeMap[them] === 'paper' && shapeMap[me] === 'rock') return lose
 
   return 0
 }
 
 function computeExpectedPlay (them: string, outcome: string) {
-  if (outcome === 'X') { // loss
+  if (outcome === 'X') { // lose
     if (shapeMap[them] === 'rock') return backwardsShapeMap.scissors
     if (shapeMap[them] === 'paper') return backwardsShapeMap.rock
     if (shapeMap[them] === 'scissors') return backwardsShapeMap.paper
@@ -102,14 +102,14 @@ function scoreRPS (input: string) {
     const playScore = plays[letters[1]] ?? 0
     const outcomeScore = scoreGame(letters[0], letters[1])
     if (index % mod === 0) {
-      output = append(output, `Round ${index}: ${letters[0]} vs ${letters[1]} → ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}\n`)
+      output = append(output, `Round ${index}: ${letters[0]} vs ${letters[1]} → ${playScore} + ${outcomeScore} = ${playScore + outcomeScore}\n`)
     }
     const score = playScore + outcomeScore
     return score
   })
 
   const totalScore = scores.reduce((a, b) => a + b, 0)
-  output = append(output, `⭐️ Total score: ${totalScore}!`, true)
+  output = append(output, `⭐️ Total score: ${totalScore}`, true)
 
   const partTwoScores = lines.map((line, index) => {
     const letters = line.split(' ')
@@ -119,7 +119,7 @@ function scoreRPS (input: string) {
     const outcomeScore = scoreGame(letters[0], myPlay)
     if (index % mod === 0) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      output = append(output, `Round ${index}: They play ${letters[0]}/${shapeMap[letters[0]]!}, I need to ${outcomeMap[letters[1]]!}, so I play ${myPlay}/${shapeMap[myPlay]!}. Scores: ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}\n`)
+      output = append(output, `Round ${index}: They play ${letters[0]}/${shapeMap[letters[0]]!}, I need to ${outcomeMap[letters[1]]!}, so I play ${myPlay}/${shapeMap[myPlay]!}. Scores: ${playScore} + ${outcomeScore} = ${playScore + outcomeScore}\n`)
     }
     const score = playScore + outcomeScore
     return score
