@@ -26,7 +26,7 @@ interface Letter {
 function scoreLetter (letterArg: string) {
   const scores: Letter = {}
   for (let i = 1; i <= 26; i++) {
-    const letter = String.fromCharCode(i + 96)
+    const letter = String.fromCharCode(i + 96) // get ascii with it
     scores[letter] = i
   }
   for (let i = 0; i < 26; i++) {
