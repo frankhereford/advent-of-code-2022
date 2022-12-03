@@ -44,7 +44,7 @@ frank@advent-of-code $ `
         setContent(c => c + ' ' + props.day?.invocation + '\n')
         setFirstTime(false)
       } else {
-        setContent(c => c + '\n' + 'echo; echo $PROBLEM_STATEMENT; echo;\n' + props.day?.problemStatement + '\n' + 'frank@advent-of-code $ ' + props.day?.invocation + '\n')
+        setContent(c => c + '\n\n' + 'echo $PROBLEM_STATEMENT;\n\n' + props.day?.problemStatement + '\n\n' + 'frank@advent-of-code $ ' + props.day?.invocation + '\n\n')
       }
       await props.day?.solution(print)
     }
