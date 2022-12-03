@@ -15,7 +15,7 @@ const zeroWidthSpace = '\u200B'
 // TODO this is repeated in the index.tsx page
 interface day {
   problemStatement: string
-  solution: (print: (line?: string) => void) => Promise<void>
+  solution: (print: (line?: string | null) => void) => Promise<void>
   invocation: string
   terminalSpeed?: number
   terminalVariability?: number
@@ -25,11 +25,11 @@ export default function AdventOfCode (props: { day: day, stars: number, reRender
   const date = new Date()
   date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
   const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
-frank@advent-of-code ` + '$' + ` echo; echo '$GIT_MSG $GIT_REPOSITORY'; echo;
+frank@advent-of-code ` + '$' + ` echo '$GITHUB_MSG $GIT_REPOSITORY'
 ${zeroWidthSpace}
 View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 ${zeroWidthSpace}
-frank@advent-of-code $ echo; echo $PROBLEM_STATEMENT; echo;
+frank@advent-of-code $ echo $PROBLEM_STATEMENT
 ${zeroWidthSpace}
 ${props.day?.problemStatement}
 ${zeroWidthSpace}
@@ -44,7 +44,7 @@ frank@advent-of-code $ `
         setContent(c => c + ' ' + props.day?.invocation + '\n')
         setFirstTime(false)
       } else {
-        setContent(c => c + '\n' + 'echo; echo $PROBLEM_STATEMENT; echo;\n' + props.day?.problemStatement + '\n' + 'frank@advent-of-code $ ' + props.day?.invocation + '\n')
+        setContent(c => c + '\n\n' + 'echo $PROBLEM_STATEMENT;\n\n' + props.day?.problemStatement + '\n\n' + 'frank@advent-of-code $ ' + props.day?.invocation + '\n\n')
       }
       await props.day?.solution(print)
     }
@@ -52,7 +52,7 @@ frank@advent-of-code $ `
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.day, props.reRender])
 
-  function print (line?: string) {
+  function print (line?: string | null) {
     if (line == null) {
       setContent(c => c + zeroWidthSpace + '\n')
     } else setContent(c => c + `${line}`)
@@ -69,7 +69,7 @@ frank@advent-of-code $ `
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center h-100vh bg-gradient-to-b from-[#c2c5be] to-[#E2E2E2]">
         <PuzzlePicker numberStars={props.stars} spread={50} spinFactor={45}></PuzzlePicker>
-        <Clouds opacity={25} windChangeDelay={15} windChangeVariability={1}></Clouds>
+        <Clouds opacity={20} windChangeDelay={15} windChangeVariability={1}></Clouds>
         <SnowfallComponent plane='distant'></SnowfallComponent>
         <SnowfallComponent plane='midground'></SnowfallComponent>
         <Terminal content={content} speed={props.day?.terminalSpeed ?? 2} variability={props.day?.terminalVariability ?? 3}></Terminal>
