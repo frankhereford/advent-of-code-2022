@@ -36,10 +36,11 @@ plugins:
   - 'react-hooks'
   - 'promise'
   - 'eslint-plugin-next'
+
 #########
 # Rules #
 #########
-rules: {}
+rules: { }
 
 ##############################
 # Overrides for JSON parsing #
