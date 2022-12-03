@@ -2,8 +2,8 @@
 import { input, testInput } from './day_02_input'
 import { append } from './helpers'
 
-const terminalSpeed = 0.1
-const terminalVariability = 0
+const terminalSpeed = 1
+const terminalVariability = 1
 
 const problemStatement = 'Day 2 task: Get super good at RPS using the encrypted guide from the elves.'
 const invocation = '️/usr/local/bin/lolcode iCanHasCheeseburgerRPS.lol'
@@ -13,6 +13,8 @@ async function solution (print: (line?: string) => void) {
 }
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
+
+const mod = 1000
 
 interface OutcomeMap {
   [key: string]: string
@@ -99,8 +101,8 @@ function scoreRPS (input: string) {
     if (letters[0] == null || letters[1] == null) return 0
     const playScore = plays[letters[1]] ?? 0
     const outcomeScore = scoreGame(letters[0], letters[1])
-    if (index % 100 === 0) {
-      output = append(output, `Round ${index}: ${letters[0]} vs ${letters[1]} → ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}`)
+    if (index % mod === 0) {
+      output = append(output, `Round ${index}: ${letters[0]} vs ${letters[1]} → ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}\n`)
     }
     const score = playScore + outcomeScore
     return score
@@ -115,9 +117,9 @@ function scoreRPS (input: string) {
     const myPlay = computeExpectedPlay(letters[0], letters[1]) ?? ''
     const playScore = plays[myPlay] ?? 0
     const outcomeScore = scoreGame(letters[0], myPlay)
-    if (index % 100 === 0) {
+    if (index % mod === 0) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      output = append(output, `Round ${index}: They play ${letters[0]}/${shapeMap[letters[0]]!}, I need to ${outcomeMap[letters[1]]!}, so I play ${myPlay}/${shapeMap[myPlay]!}. Scores: ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}`)
+      output = append(output, `Round ${index}: They play ${letters[0]}/${shapeMap[letters[0]]!}, I need to ${outcomeMap[letters[1]]!}, so I play ${myPlay}/${shapeMap[myPlay]!}. Scores: ${playScore} and ${outcomeScore} = ${playScore + outcomeScore}\n`)
     }
     const score = playScore + outcomeScore
     return score
@@ -126,7 +128,8 @@ function scoreRPS (input: string) {
   const totalScorePartTwo = partTwoScores.reduce((a, b) => a + b, 0)
   output = append(output, `⭐️ Total score part two: ${totalScorePartTwo}`, true)
 
-  output = append(output, 'frank@advent-of-code $', true)
+  // * don't set the pad argument here
+  output = append(output, 'frank@advent-of-code $')
   return output
 }
 

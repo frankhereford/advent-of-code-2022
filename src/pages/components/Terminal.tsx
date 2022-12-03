@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
+
 import { useEffect, useRef, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 import _ from 'lodash'
@@ -40,7 +42,13 @@ export default function Terminal (props: Props) {
       const newText = getNewText(printedContentString, props.content)
 
       // * get out of dodge if we didn't get anything; non-op
-      if (newText == null) return
+      if (newText == null || newText === '') {
+        // @ts-ignore
+        bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+        setIsPlaying(false)
+        return
+      }
+
       if (newText[0] == null) return
 
       // * we type one letter at a time
@@ -55,8 +63,8 @@ export default function Terminal (props: Props) {
         // * here's that new array element
         localPresentationContent.push('')
         // * we're about to be done, so set the side effects this routine needs to touch
-        setPresentationContent(localPresentationContent)
         setPrintedContentString(localPresentationContent.join('\n'))
+        setPresentationContent(localPresentationContent)
         return
       }
 
@@ -76,9 +84,6 @@ export default function Terminal (props: Props) {
       setPrintedContentString(localPresentationContent.join('\n'))
       setPresentationContent(localPresentationContent)
 
-      // ! 👇 💀 this is inane. lint hardcore!
-      // ? also, how on earth can i fix this?
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
       // @ts-ignore
       bottomRef.current?.scrollIntoView({ behavior: 'auto' })
     },
@@ -86,6 +91,7 @@ export default function Terminal (props: Props) {
   )
 
   useEffect(() => {
+    setIsPlaying(true)
     setIsShown(true)
   }, [props.content])
 
@@ -115,7 +121,12 @@ export default function Terminal (props: Props) {
             </div>
               <div className={'overflow-auto pl-1 pt-1 h-[67vh] text-green-200 font-mono text-xs '} id="console">
                 {presentationContent.map((line, index) => (
-                  <p key={index} className="pb-1">{line}</p>
+                  <p key={index} className="pb-1">
+                    {line}
+                    {index === presentationContent.length - 1 && (
+                      <span className='blink'> █</span>
+                    )}
+                  </p>
                 ))}
               <div ref={bottomRef} />
               </div>

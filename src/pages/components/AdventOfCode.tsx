@@ -55,7 +55,7 @@ frank@advent-of-code $ `
   function print (line?: string) {
     if (line == null) {
       setContent(c => c + zeroWidthSpace + '\n')
-    } else setContent(c => c + `${line}` + '\n')
+    } else setContent(c => c + `${line}`)
   }
   return (
     <>
