@@ -36,7 +36,7 @@ import { useState, createContext } from 'react'
 // TODO this is repeated in the AdventOfCode.tsx component ..
 interface day {
   problemStatement: string
-  solution: (print: (line?: string) => void) => Promise<void>
+  solution: (print: (line?: string | null) => void) => Promise<void>
   invocation: string
   terminalSpeed?: number
   terminalVariability?: number

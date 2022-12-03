@@ -15,7 +15,7 @@ const zeroWidthSpace = '\u200B'
 // TODO this is repeated in the index.tsx page
 interface day {
   problemStatement: string
-  solution: (print: (line?: string) => void) => Promise<void>
+  solution: (print: (line?: string | null) => void) => Promise<void>
   invocation: string
   terminalSpeed?: number
   terminalVariability?: number
@@ -52,7 +52,7 @@ frank@advent-of-code $ `
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.day, props.reRender])
 
-  function print (line?: string) {
+  function print (line?: string | null) {
     if (line == null) {
       setContent(c => c + zeroWidthSpace + '\n')
     } else setContent(c => c + `${line}`)
