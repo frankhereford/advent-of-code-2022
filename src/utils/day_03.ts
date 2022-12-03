@@ -37,22 +37,25 @@ function scoreLetter (letterArg: string) {
     const letter = String.fromCharCode(i + 65)
     scores[letter] = i + 1 + 26
   }
-  return scores[letterArg]
+  return scores[letterArg] ?? 0
+}
+
+function intersectRow (line: string) {
+  const leftString = line.slice(0, line.length / 2)
+  const rightString = line.slice(line.length / 2, line.length)
+  const left = new Set(leftString.split(''))
+  const right = new Set(rightString.split(''))
+  const intersection = [...left].filter(x => right.has(x))
+  return intersection[0] ?? ''
 }
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
   const scores = lines.map((line, index) => {
-    const leftString = line.slice(0, line.length / 2)
-    const rightString = line.slice(line.length / 2, line.length)
-    const left = new Set(leftString.split(''))
-    const right = new Set(rightString.split(''))
-    const intersection = [...left].filter(x => right.has(x))
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const score = scoreLetter(intersection[0]!)
+    const intersection = intersectRow(line)
+    const score = scoreLetter(intersection)
     if ((index % mod) === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      print(`Pack #${index}: I shook it real hard, and I got out two ${intersection[0]!} letters worth ${score!}.\n`)
+      print(`Pack #${index}: I shook it real hard, and I got out two ${intersection} letters worth ${score}.\n`)
     }
     return score
   })
@@ -61,8 +64,30 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     if (a == null || b == null) return 0
     return a + b
   }, 0)
-  if (sum == null) return
-  print(`⭐️ The backpack priority initial scan reads: ${sum}`)
+  print()
+  print(`⭐️ The backpack priority initial scan reads: ${sum}\n`)
+  print()
+
+  const chunks = []
+  for (let i = 0; i < lines.length; i += 3) {
+    const chunk = lines.slice(i, i + 3)
+    chunks.push(chunk)
+  }
+  const badgeScores = chunks.map((chunk, index) => {
+    const uno = new Set(chunk[0])
+    const dos = new Set(chunk[1])
+    const tres = new Set(chunk[2])
+    const [badge] = [uno, dos, tres].reduce((a, b) => new Set([...a].filter(x => b.has(x))))
+    if ((index % 10) === 0) {
+      print(`Group #${index} has the common item ${badge ?? ''} worth ${scoreLetter(badge ?? '')}.\n`)
+    }
+    return scoreLetter(badge ?? '')
+  })
+
+  const answer = badgeScores.reduce((partialSum, a) => partialSum + a, 0)
+  print()
+  print(`⭐️ By groups, the badge priority scan reads: ${answer}\n`)
+
   // * return null here to get that extra space before the waiting terminal prompt
   return null
 }
