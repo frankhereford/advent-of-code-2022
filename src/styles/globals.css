@@ -38,7 +38,7 @@ img.haze {
 }
 
 .fading {
-    animation-duration: .5s;
+    animation-duration: 2s;
     animation-name: fading;
 }
 
