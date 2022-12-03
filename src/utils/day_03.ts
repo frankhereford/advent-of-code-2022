@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable padded-blocks */
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_03_input'
 
@@ -59,7 +55,6 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     }
     return score
   })
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const sum = scores.reduce((a, b) => {
     if (a == null || b == null) return 0
     return a + b
