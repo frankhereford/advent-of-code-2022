@@ -36,3 +36,17 @@ img.haze {
     opacity: 0;
   }
 }
+
+.fading {
+    animation-duration: .5s;
+    animation-name: fading;
+}
+
+@keyframes fading {
+    from {
+        color: rgb(16, 237, 93);
+    }
+    to {
+        color: rgb(187 247 208);
+    }
+}
