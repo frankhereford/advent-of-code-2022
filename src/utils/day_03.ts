@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable padded-blocks */
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_03_input'
 
@@ -30,7 +26,7 @@ interface Letter {
 function scoreLetter (letterArg: string) {
   const scores: Letter = {}
   for (let i = 1; i <= 26; i++) {
-    const letter = String.fromCharCode(i + 96)
+    const letter = String.fromCharCode(i + 96) // get ascii with it
     scores[letter] = i
   }
   for (let i = 0; i < 26; i++) {
@@ -59,7 +55,6 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     }
     return score
   })
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const sum = scores.reduce((a, b) => {
     if (a == null || b == null) return 0
     return a + b
@@ -73,6 +68,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     const chunk = lines.slice(i, i + 3)
     chunks.push(chunk)
   }
+
   const badgeScores = chunks.map((chunk, index) => {
     const uno = new Set(chunk[0])
     const dos = new Set(chunk[1])
