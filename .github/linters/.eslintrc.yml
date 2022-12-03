@@ -35,6 +35,7 @@ plugins:
   - '@typescript-eslint'
   - 'react-hooks'
   - 'promise'
+  - 'next/core-web-vitals'
 
 #########
 # Rules #
