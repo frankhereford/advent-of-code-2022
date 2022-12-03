@@ -15,6 +15,7 @@ function getNewText (printed: string, content: string) {
   // eslint-disable-next-line no-useless-escape
   let escapedPrinted = printed.replace(/\$/g, '\\$')
   escapedPrinted = escapedPrinted.replace(/'/g, '\\\'')
+  escapedPrinted = escapedPrinted.replace(/\+/g, '\\+')
   const pattern = `^${escapedPrinted}([\\s\\S]*)`
   const regex = new RegExp(pattern)
   const results = regex.exec(content)
