@@ -25,11 +25,11 @@ export default function AdventOfCode (props: { day: day, stars: number, reRender
   const date = new Date()
   date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
   const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
-frank@advent-of-code ` + '$' + ` echo '$GIT_MSG $GIT_REPOSITORY';
+frank@advent-of-code ` + '$' + ` echo '$GITHUB_MSG $GIT_REPOSITORY'
 ${zeroWidthSpace}
 View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
 ${zeroWidthSpace}
-frank@advent-of-code $ echo $PROBLEM_STATEMENT;
+frank@advent-of-code $ echo $PROBLEM_STATEMENT
 ${zeroWidthSpace}
 ${props.day?.problemStatement}
 ${zeroWidthSpace}
