@@ -68,6 +68,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     const chunk = lines.slice(i, i + 3)
     chunks.push(chunk)
   }
+
   const badgeScores = chunks.map((chunk, index) => {
     const uno = new Set(chunk[0])
     const dos = new Set(chunk[1])
