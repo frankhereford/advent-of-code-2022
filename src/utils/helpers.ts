@@ -9,5 +9,6 @@ export async function sleepRandom (n: number) {
 }
 
 export function append (input: string, toAppend: string, pad = false) {
-  return input + (pad ? '\n' : '') + toAppend + (pad ? '\n' : '') + (toAppend.endsWith('\n') ? '' : '\n')
+  // return input + (pad ? '\n' : '') + toAppend + (pad ? '\n' : '') + (toAppend.endsWith('\n') ? '' : '\n')
+  return input + (pad ? '\n' : '') + toAppend + (pad ? '\n\n' : '')
 }

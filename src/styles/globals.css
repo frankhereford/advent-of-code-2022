@@ -26,3 +26,13 @@ img.haze {
   075% { transform: translateX(-50%); }
   100% { transform: translateX(0%); }
 }
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
