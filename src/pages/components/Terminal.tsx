@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/prefer-ts-expect-error */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useEffect, useRef, useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 import _ from 'lodash'
@@ -40,7 +40,6 @@ export default function Terminal (props: Props) {
     () => {
       // * figure out what text is new since we last were here
       const newText = getNewText(printedContentString, props.content)
-      // console.log('delay', delay)
 
       // * get out of dodge if we didn't get anything; non-op
       if (newText == null || newText === '') {
@@ -66,7 +65,6 @@ export default function Terminal (props: Props) {
         // * we're about to be done, so set the side effects this routine needs to touch
         setPrintedContentString(localPresentationContent.join('\n'))
         setPresentationContent(localPresentationContent)
-        // setPresentationContent(trimEnd(localPresentationContent))
         return
       }
 
