@@ -14,7 +14,7 @@ async function solution (print: (line?: string) => void) {
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
-const mod = 1000
+const mod = 100
 
 interface OutcomeMap {
   [key: string]: string
