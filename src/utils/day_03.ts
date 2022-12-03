@@ -5,7 +5,7 @@ const terminalSpeed = 1
 const terminalVariability = 1
 
 const problemStatement = 'Day 3 task: The packs are not packed right! Help the elves get organized.'
-const invocation = '️/bin/lua packPacks.lua'
+const invocation = '/bin/lua packPacks.lua'
 const mod = 20
 
 async function solution (print: (line?: string | null) => void) {
