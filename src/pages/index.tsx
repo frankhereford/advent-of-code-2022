@@ -45,9 +45,9 @@ export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
   // * Number of stars to render
-  const stars = 2
+  const stars = 3
   // * Default day to load           👇
-  const [day, setDay] = useState<day>(day02)
+  const [day, setDay] = useState<day>(day03)
   const [render, setRender] = useState(0)
 
   function makeDay (makeDay: number) {
