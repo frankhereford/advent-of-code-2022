@@ -47,6 +47,7 @@ function checkOverlap (intervals: number[][]) {
   const intersection = [...firstInterval].filter(x => secondInterval.has(x))
   */
 
+  // ? I'm confused about this typing error here.. it seems so checked for in the above type assertion in the first line of the block
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const intersection = intervals[0].every(num => intervals[1]!.includes(num)) || intervals[1].every(num => intervals[0]!.includes(num))
 
