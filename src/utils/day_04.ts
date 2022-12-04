@@ -82,7 +82,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   const overlapCount = overlaps.reduce((acc, curr) => curr ? acc + 1 : acc, 0)
 
   print()
-  print(`⭐️ Looks like we have ${overlapCount} pairs of elves with overlapping cleaning assignments.`)
+  print(`⭐️ Looks like we have ${overlapCount} pairs of elves with overlapping cleaning assignments.\n`)
   print()
 
   const overlapsDetails = lines.map((input, index) => {
@@ -102,8 +102,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const overlapDetailsCount = overlapsDetails.reduce((accumulator, value) => value ? accumulator + 1 : accumulator, 0)
   print()
-  print(`⭐️ It appears that there are ${overlapDetailsCount} pairs of elves with overlapping cleaning assignments.`)
-  print()
+  print(`⭐️ It appears that there are ${overlapDetailsCount} pairs of elves with overlapping cleaning assignments.\n`)
 
   return null
 }
