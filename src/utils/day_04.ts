@@ -70,7 +70,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     const overlap = checkOverlap(intervals)
     if ((index % mod) === 0) {
       if (overlap) {
-        print(`🏖️ Good news, 🧝 #${index}! Y'all have a fully overlapped assignments!\n`)
+        print(`🏖️ Good news, 🧝 pair #${index}! Y'all have a fully overlapped assignments!\n`)
       } else {
         print(`🧹 Bad news for 🧝 pair #${index}, they have non-fully overlapped assignments.\n`)
       }
@@ -90,7 +90,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     if (overlap == null || overlap === false) return []
     if ((index % 50) === 0) {
       if (overlap.length > 0) {
-        print(`🏖️ Good news, 🧝 #${index}! Y'all have an overlap of ${JSON.stringify(summarize(overlap))}!\n`)
+        print(`🏖️ Good news, 🧝 pair #${index}! Y'all have an overlap of ${JSON.stringify(summarize(overlap))}.\n`)
       } else {
         print(`🧹 Bad news for 🧝 pair #${index}, they have non-fully overlapped assignments.\n`)
       }
