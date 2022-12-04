@@ -7,12 +7,12 @@ import { input, testInput } from './day_04_input'
 const terminalSpeed = 1
 const terminalVariability = 1
 
-const problemStatement = 'Day 4 task: '
-const invocation = '️something.bin > /dev/cpu'
+const problemStatement = 'Day 4 task: The elves are lazy, but lazy like programmers. Help them find the best way to clean the unloading space.'
+const invocation = '️cat cleaningTaskSuperposition.qBits > /proc/quantumCPU'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -22,8 +22,6 @@ export default day
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
-
-
 
 
 
