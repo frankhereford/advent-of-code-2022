@@ -1,3 +1,5 @@
+import { defaultDay } from 'src/pages/[index]'
+
 // @ts-check
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -19,7 +21,7 @@ const config = {
     return [
       {
         source: '/',
-        destination: '/4',
+        destination: `/${defaultDay}`,
         permanent: false
       }
     ]

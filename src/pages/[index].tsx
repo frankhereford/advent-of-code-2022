@@ -45,7 +45,7 @@ interface day {
 // * Number of stars to render
 const stars = 4
 // * Default day to load
-const defaultDay = 4
+export const defaultDay = 4
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const DayPicker = createContext((day: number) => {})
