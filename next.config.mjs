@@ -1,4 +1,6 @@
-import { defaultDay } from 'src/pages/[index]'
+// import { defaultDay } from './src/pages/[index].ts'
+
+const defaultDay = 4
 
 // @ts-check
 /**
