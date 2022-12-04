@@ -1,5 +1,6 @@
 import { useContext } from 'react'
-import { DayPicker } from '../index'
+// eslint-disable-next-line no-useless-escape
+import { DayPicker } from '../\[index\]'
 
 export default function Star (props: { day: string, isHover: boolean }) {
   const setDay = useContext(DayPicker)

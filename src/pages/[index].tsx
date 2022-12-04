@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
+import z from 'zod'
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
 import day02 from '../utils/day_02'
@@ -29,7 +31,7 @@ import day23 from '../utils/day_23'
 import day24 from '../utils/day_24'
 import day25 from '../utils/day_25'
 
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 
 // TODO this is repeated in the AdventOfCode.tsx component ..
 interface day {
@@ -40,23 +42,48 @@ interface day {
   terminalVariability?: number
 }
 
+// * Number of stars to render
+const stars = 4
+// * Default day to load
+const defaultDay = 4
+
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const DayPicker = createContext((day: number) => {})
 
 const Home: NextPage = () => {
-  // * Number of stars to render
-  const stars = 4
-  // * Default day to load           👇
-  const [day, setDay] = useState<day>(day04)
+  const [day, setDay] = useState<day>()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!router.isReady) return
+    if (typeof router.query.index !== 'string') return
+    const daySchema = z.number()
+    const parseResult = daySchema.safeParse(parseInt(router.query.index))
+    if (parseResult.success && parseResult.data >= 1 && parseResult.data <= defaultDay) {
+      makeDay(parseResult.data)
+    } else {
+      makeDay(defaultDay)
+    }
+    setRender(r => r + 1)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady])
+
   const [render, setRender] = useState(0)
 
+  // function which takes a number and updates the URL using the next router
+  const updateURL = (day: number) => {
+    const url = `/${day}`
+    router.push(url, url, { shallow: true }).catch(err => { console.error(err) })
+  }
+
+  // TODO make this a useCallback hook to put it in the dep array above
   function makeDay (makeDay: number) {
-    if (makeDay === 0) { setDay(day00) }
-    if (makeDay === 1) { setDay(day01) }
-    if (makeDay === 2) { setDay(day02) }
-    if (makeDay === 3) { setDay(day03) }
-    if (makeDay === 4) { setDay(day04) }
-    if (makeDay === 5) { setDay(day05) }
+    if (makeDay === 0) { setDay(day00); updateURL(0) }
+    if (makeDay === 1) { setDay(day01); updateURL(1) }
+    if (makeDay === 2) { setDay(day02); updateURL(2) }
+    if (makeDay === 3) { setDay(day03); updateURL(3) }
+    if (makeDay === 4) { setDay(day04); updateURL(4) }
+    if (makeDay === 5) { setDay(day05); updateURL(5) }
     if (makeDay === 6) { setDay(day06) }
     if (makeDay === 7) { setDay(day07) }
     if (makeDay === 8) { setDay(day08) }
@@ -83,7 +110,9 @@ const Home: NextPage = () => {
   return (
     <DayPicker.Provider value={makeDay}>
       <NoSSR>
-        <AdventOfCode day={day} stars={stars} reRender={render} />
+        {(day != null) && (
+          <AdventOfCode day={day} stars={stars} reRender={render} />
+        )}
       </NoSSR>
     </DayPicker.Provider>
   )

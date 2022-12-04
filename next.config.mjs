@@ -14,6 +14,15 @@ const config = {
   i18n: {
     locales: ['en'],
     defaultLocale: 'en'
+  },
+  async redirects () {
+    return [
+      {
+        source: '/',
+        destination: '/4',
+        permanent: false
+      }
+    ]
   }
 }
 export default config
