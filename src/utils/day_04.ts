@@ -88,7 +88,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     const intervals = input.split(',').map((interval) => numify(interval))
     const overlap = returnOverlap(intervals)
     if (overlap == null || overlap === false) return []
-    if ((index % mod) === 0) {
+    if ((index % 50) === 0) {
       if (overlap.length > 0) {
         print(`🏖️ Good news, 🧝 #${index}! Y'all have an overlap of ${JSON.stringify(summarize(overlap))}!\n`)
       } else {
