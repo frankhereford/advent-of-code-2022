@@ -1,12 +1,9 @@
-/* eslint-disable padded-blocks */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_04_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
-const mod = 10
+const mod = 100
 
 const problemStatement = 'Day 4 task: The elves are lazy, but lazy like programmers. Help them find the best way to clean the unloading space.'
 const invocation = '️cat cleaningTaskSuperposition.qBits > /proc/quantumCPU'
@@ -22,10 +19,25 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
-function checkOverlap (intervals: number[][]) { 
-  // console.log(intervals)
+// function which takes an array of sequential numbers and returns an array with the first 3 and the last 3 with an element of '...' in the middle
+function summarize (array: number[]) {
+  if (array.length <= 6) return array
+  return [array[0], array[1], array[2], '...', array[array.length - 3], array[array.length - 2], array[array.length - 1]]
+}
+
+function returnOverlap (intervals: number[][]) {
   if (intervals[0] == null || intervals[1] == null) return false
 
+  const firstInterval = new Set(intervals[0])
+  const secondInterval = new Set(intervals[1])
+  const intersection = [...firstInterval].filter(x => secondInterval.has(x))
+  return intersection
+}
+
+function checkOverlap (intervals: number[][]) {
+  if (intervals[0] == null || intervals[1] == null) return false
+
+  // ! 🎉 This was a happy surprize! I did this and am glad I didn't delete it because it became part 2 as returnOverlap()!
   /*
   // * This was an initial misunderstanding, where I thought I was looking for any overlap
   const firstInterval = new Set(intervals[0])
@@ -34,8 +46,7 @@ function checkOverlap (intervals: number[][]) {
   */
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const intersection = intervals[0].every(num => intervals[1]!.includes(num)) || intervals[1].every(num => intervals[0]!.includes(num)) 
-  // console.log(intersection)
+  const intersection = intervals[0].every(num => intervals[1]!.includes(num)) || intervals[1].every(num => intervals[0]!.includes(num))
 
   return intersection
 }
@@ -53,7 +64,6 @@ function numify (input: string) {
 function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
   const overlaps = lines.map((input, index) => {
-    // console.log(input)
     const intervals = input.split(',').map((interval) => numify(interval))
     const overlap = checkOverlap(intervals)
     if ((index % mod) === 0) {
@@ -70,6 +80,27 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 
   print()
   print(`⭐️ Looks like we have ${overlapCount} pairs of elves with overlapping cleaning assignments.`)
+  print()
+
+  const overlapsDetails = lines.map((input, index) => {
+    const intervals = input.split(',').map((interval) => numify(interval))
+    const overlap = returnOverlap(intervals)
+    if (overlap == null || overlap === false) return []
+    if ((index % mod) === 0) {
+      if (overlap.length > 0) {
+        print(`🏖️ Good news, 🧝 #${index}! Y'all have an overlap of ${JSON.stringify(summarize(overlap))}!\n`)
+      } else {
+        print(`🧹 Bad news for 🧝 pair #${index}, they have non-fully overlapped assignments.\n`)
+      }
+    }
+    return overlap.length > 0
+  })
+
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const overlapDetailsCount = overlapsDetails.reduce((accumulator, value) => value ? accumulator + 1 : accumulator, 0)
+  print()
+  print(`⭐️ It appears that there are ${overlapDetailsCount} pairs of elves with overlapping cleaning assignments.`)
+  print()
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
