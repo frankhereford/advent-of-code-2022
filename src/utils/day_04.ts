@@ -47,6 +47,7 @@ function checkOverlap (intervals: number[][]) {
   const intersection = [...firstInterval].filter(x => secondInterval.has(x))
   */
 
+  // ? I'm confused about this typing error here.. it seems so checked for in the above type assertion in the first line of the block
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const intersection = intervals[0].every(num => intervals[1]!.includes(num)) || intervals[1].every(num => intervals[0]!.includes(num))
 
@@ -72,7 +73,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
       if (overlap) {
         print(`🏖️ Good news, 🧝 pair #${index}! Y'all have a fully overlapped assignments!\n`)
       } else {
-        print(`🧹 Bad news for 🧝 pair #${index}, they have non-fully overlapped assignments.\n`)
+        print(`🧹 Bad news for 🧝 pair #${index}, they have fully non-overlapped assignments.\n`)
       }
     }
     return overlap
@@ -92,7 +93,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
       if (overlap.length > 0) {
         print(`🏖️ Good news, 🧝 pair #${index}! Y'all have an overlap of ${JSON.stringify(summarize(overlap))}.\n`)
       } else {
-        print(`🧹 Bad news for 🧝 pair #${index}, they have non-fully overlapped assignments.\n`)
+        print(`🧹 Bad news for 🧝 pair #${index}, they have fully non-overlapped assignments.\n`)
       }
     }
     return overlap.length > 0
