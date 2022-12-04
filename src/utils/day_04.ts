@@ -101,6 +101,5 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   print(`⭐️ It appears that there are ${overlapDetailsCount} pairs of elves with overlapping cleaning assignments.`)
   print()
 
-  // * return null here to get that extra space before the waiting terminal prompt
   return null
 }
