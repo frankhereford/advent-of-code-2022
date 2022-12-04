@@ -18,7 +18,9 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
-// function which takes an array of sequential numbers and returns an array with the first 3 and the last 3 with an element of '...' in the middle
+// ? function which takes an array of sequential numbers and returns an array with the first 3 and the last 3 with an element of '...' in the middle
+// * this is an example of why copilot is can be super helpful
+// * i wrote the above comment and it just gave me the following function, typed and everything
 function summarize (array: number[]) {
   if (array.length <= 6) return array
   return [array[0], array[1], array[2], '...', array[array.length - 3], array[array.length - 2], array[array.length - 1]]
