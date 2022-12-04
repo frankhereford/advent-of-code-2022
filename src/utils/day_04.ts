@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_04_input'
 
 const terminalSpeed = 1
