@@ -1,3 +1,7 @@
+// import { defaultDay } from './src/pages/[index].ts'
+
+const defaultDay = 4
+
 // @ts-check
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -14,6 +18,15 @@ const config = {
   i18n: {
     locales: ['en'],
     defaultLocale: 'en'
+  },
+  async redirects () {
+    return [
+      {
+        source: '/',
+        destination: `/${defaultDay}`,
+        permanent: false
+      }
+    ]
   }
 }
 export default config
