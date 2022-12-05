@@ -27,7 +27,7 @@ export default function AdventOfCode (props: { day: day, stars: number, reRender
   const date = new Date()
   date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
   const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
-${zeroWidthSpace}System running elfOS ${packageJson.version}
+${zeroWidthSpace}Welcome to elfOS v${packageJson.version}
 ${zeroWidthSpace}
 frank@advent-of-code ` + '$' + ` echo '$GITHUB_MSG $GIT_REPOSITORY'
 ${zeroWidthSpace}
