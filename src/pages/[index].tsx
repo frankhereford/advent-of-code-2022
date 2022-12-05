@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import NoSSR from 'react-no-ssr'
 import AdventOfCode from './components/AdventOfCode'
 import z from 'zod'
+import packageJson from '../../package.json'
 import day00 from '../utils/day_00'
 import day01 from '../utils/day_01'
 import day02 from '../utils/day_02'
@@ -42,10 +43,15 @@ interface day {
   terminalVariability?: number
 }
 
+const getMinorVersion = (version: string) => {
+  const [major, minor, patch] = version.split('.')
+  return parseInt(minor ?? '1')
+}
+
 // * Number of stars to render
-const stars = 4
+const stars = getMinorVersion(packageJson.version)
 // * Default day to load
-export const defaultDay = 4
+export const defaultDay = getMinorVersion(packageJson.version)
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const DayPicker = createContext((day: number) => {})
