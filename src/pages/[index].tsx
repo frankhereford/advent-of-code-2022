@@ -45,7 +45,6 @@ interface day {
 
 const getMinorVersion = (version: string) => {
   const [major, minor, patch] = version.split('.').map((v) => parseInt(v))
-  console.log('version: ', version, major, minor, patch)
   return minor ?? 1
 }
 
