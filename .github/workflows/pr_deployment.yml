@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "️🧶 yarn install"
           yarn install
-          VERCEL_OUTPUT="$(vercel --token=${{ secrets.VERCEL_TOKEN }}
+          VERCEL_OUTPUT="$(vercel --token=${{ secrets.VERCEL_TOKEN }})"
           echo "$VERCEL_OUTPUT"
           echo "🏁 Finished"
           echo VERCEL_OUTPUT="$VERCEL_OUTPUT" >> "$GITHUB_OUTPUT"
