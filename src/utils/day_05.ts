@@ -12,7 +12,7 @@ const invocation = '️/legacy/bin/turing thisSideUp.tape'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -34,17 +34,39 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   const stacks = parseBoxes(lines, print)
   // console.table(stacks)
 
+  print()
+
   const instructions = parseInstructions(lines, print)
   // console.table(instructions)
 
-  const organizedStacks = processInstructions(instructions, stacks, print)
-  console.table(organizedStacks)
+  print()
 
-  const topCrates = organizedStacks.map((stack, index) => {
+  const organizedStacksPartOne = processInstructionsOneByOne(instructions, stacks, print)
+  console.table(organizedStacksPartOne)
+
+  const topCratesPartOne = organizedStacksPartOne.map((stack, index) => {
     return stack.pop()
   })
-  console.log(topCrates)
-  print(`The top crates are ${topCrates.join('')}.`)
+
+  print()
+  print(`The top crates are ${topCratesPartOne.join('')}.`)
+  print()
+
+  print()
+  print('🏗️ Install the CrateMover 9001. It\'s over 9000!')
+  print()
+
+  const organizedStacksPartTwo = processInstructions9001(instructions, stacks, print)
+  console.table(organizedStacksPartTwo)
+
+  const topCratesPartTwo = organizedStacksPartTwo.map((stack, index) => {
+    return stack.pop()
+  })
+
+  print()
+  print(`The top crates are ${topCratesPartTwo.join('')}.`)
+  print()
+
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
@@ -53,7 +75,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 // pre part 1 solve, i bet the twist is they get a crane upgrade and can move multiple at once
 
 
-function processInstructions (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
+function processInstructionsOneByOne (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
   instructions.map((instruction, index) => {
     const { quantity, origin, destination } = instruction
     const message = `Moving ${quantity} from ${origin} to ${destination}`
@@ -67,6 +89,19 @@ function processInstructions (instructions: Move[], stacks: string[][], print: (
   return stacks
 }
 
+function processInstructions9001 (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
+  instructions.map((instruction, index) => {
+    const { quantity, origin, destination } = instruction
+    const message = `Moving ${quantity} from ${origin} to ${destination}`
+    if (index % 50 === 0) print(message + '\n')
+    for (let i = 0; i < quantity; i++) {
+      const box = stacks[origin]!.pop()
+      stacks[destination]!.push(box!)
+    }
+    return true
+  })
+  return stacks
+}
 /*
     const inFlightBoxes: string[] = []
     for (let i = 0; i < quantity; i++) {
