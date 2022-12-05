@@ -1,6 +1,15 @@
 // import { defaultDay } from './src/pages/[index].ts'
 
-const defaultDay = 4
+import packageJson from './package.json' assert { type: 'json' }
+
+// function which returns the minor version of the current package
+const getMinorVersion = () => {
+  const version = packageJson.version
+  const minorVersion = version.split('.').slice(0, 2).join('.')
+  return parseInt(minorVersion)
+}
+
+const defaultDay = getMinorVersion(packageJson.version)
 
 // @ts-check
 /**
