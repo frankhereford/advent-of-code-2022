@@ -43,6 +43,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   return null
 }
 
+// pre part 1 solve, i bet the twist is they get a crane upgrade and can move multiple at once
 
 
 function processInstructions (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
