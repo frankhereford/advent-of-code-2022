@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
+import packageJson from '../../../package.json'
+
 import PuzzlePicker from './PuzzlePicker'
 import Terminal from './Terminal'
 import SnowfallComponent from './Snowfall'
@@ -25,6 +27,8 @@ export default function AdventOfCode (props: { day: day, stars: number, reRender
   const date = new Date()
   date.setDate(date.getDate() - Math.floor(1 + (Math.random() * 5)))
   const defaultContent = `Last Login: ${date.toLocaleDateString('en-US')} on ttys002
+${zeroWidthSpace}Welcome to elfOS v${packageJson.version}
+${zeroWidthSpace}
 frank@advent-of-code ` + '$' + ` echo '$GITHUB_MSG $GIT_REPOSITORY'
 ${zeroWidthSpace}
 View this on GitHub: https://github.com/frankhereford/advent-of-code-2022
