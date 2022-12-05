@@ -1,6 +1,6 @@
 // * no leading or trailing whitespace in following strings
 
-export const testInput = `[D]    
+export const testInput = `    [D]    
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
