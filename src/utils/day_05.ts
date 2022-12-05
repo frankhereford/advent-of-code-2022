@@ -52,11 +52,9 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 
   // fresh stacks
   stacks = parseBoxes(lines, print)
-
   print()
 
   const organizedStacksPartTwo = processInstructions9001(instructions, stacks, print)
-
   print()
 
   const topCratesPartTwo = organizedStacksPartTwo.map((stack, index) => {
@@ -70,7 +68,6 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 }
 
 // pre part 1 solve, i bet the twist is they get a crane upgrade and can move multiple at once
-
 
 function processInstructionsOneByOne (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
   instructions.map((instruction, index) => {
@@ -102,15 +99,6 @@ function processInstructions9001 (instructions: Move[], stacks: string[][], prin
   })
   return stacks
 }
-/*
-
-    console.log('inFlightBoxes: ', inFlightBoxes)
-    for (let i = quantity; i > 0; i--) {
-      stacks[destination]?.push(inFlightBoxes.shift() ?? '')
-    }
-    //stacks[destination]?.concat(inFlightBoxes)
-    console.table(stacks)
-*/
 
 function parseInstructions (lines: string[], print: (line?: string) => void) {
   const moves: Move[] = []
