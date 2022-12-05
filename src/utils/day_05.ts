@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable padded-blocks */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -11,7 +12,7 @@ const invocation = '️/legacy/bin/turing thisSideUp.tape'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(testInput, print))
+  print(puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
@@ -37,7 +38,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // console.table(instructions)
 
   const organizedStacks = processInstructions(instructions, stacks, print)
-  //console.log(organizedStacks)
+  console.table(organizedStacks)
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
@@ -50,10 +51,17 @@ function processInstructions (instructions: Move[], stacks: string[][], print: (
   instructions.map((instruction, index) => {
     const { quantity, origin, destination } = instruction
     const message = `Moving ${quantity} from ${origin} to ${destination}`
-    print(message + '\n')
-    console.log('🍀🔥🎩')
-    console.table(stacks)
-    console.log(message)
+    if (index % 50 === 0) print(message + '\n')
+    for (let i = 0; i < quantity; i++) {
+      const box = stacks[origin]!.pop()
+      stacks[destination]!.push(box!)
+    }
+    return true
+  })
+  return stacks
+}
+
+/*
     const inFlightBoxes: string[] = []
     for (let i = 0; i < quantity; i++) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -65,9 +73,7 @@ function processInstructions (instructions: Move[], stacks: string[][], print: (
     }
     //stacks[destination]?.concat(inFlightBoxes)
     console.table(stacks)
-    return true
-  })
-}
+*/
 
 function parseInstructions (lines: string[], print: (line?: string) => void) {
   const moves: Move[] = []
