@@ -8,7 +8,7 @@ const terminalSpeed = 1
 const terminalVariability = 1
 
 const problemStatement = 'Day 5 task: Channel your inner shipping yard and help the elves figure out what is where.'
-const invocation = '️/legacy/bin/turing thisSideUp.tape'
+const invocation = '️/legacy/bin/turing towerOfHanoi.tape'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
@@ -33,7 +33,6 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // stacks are going to be index 0 on the bottom
   let stacks = parseBoxes(lines, print)
 
-  print()
   const instructions = parseInstructions(lines, print)
   print()
 
@@ -43,26 +42,28 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   })
 
   print()
-  print(`The top crates are ${topCratesPartOne.join('')}.`)
+  print(`⭐️ The top crates are ${topCratesPartOne.join('')}.`)
   print()
 
   print()
-  print('🏗️ Install the CrateMover 9001. It\'s over 9000!')
+  print('🏗✨️🍄 Install the CrateMover 9001. It\'s over 9000!\n')
+  print('📦 We better get some fresh stacks of boxes!\n')
   print()
 
   // fresh stacks
   stacks = parseBoxes(lines, print)
 
+  print()
+
   const organizedStacksPartTwo = processInstructions9001(instructions, stacks, print)
-  // console.table(organizedStacksPartTwo)
+
+  print()
 
   const topCratesPartTwo = organizedStacksPartTwo.map((stack, index) => {
     return stack.pop()
   })
 
-  print()
-  print(`The top crates are ${topCratesPartTwo.join('')}.`)
-  print()
+  print(`⭐️ The top crates are ${topCratesPartTwo.join('')}.`)
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
@@ -74,7 +75,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 function processInstructionsOneByOne (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
   instructions.map((instruction, index) => {
     const { quantity, origin, destination } = instruction
-    const message = `Moving ${quantity} from ${origin} to ${destination}`
+    const message = `🏗️ Move ${index}: Moving ${quantity} from ${origin} to ${destination}`
     if (index % 50 === 0) print(message + '\n')
     for (let i = 0; i < quantity; i++) {
       const box = stacks[origin]!.pop()
@@ -88,21 +89,15 @@ function processInstructionsOneByOne (instructions: Move[], stacks: string[][], 
 function processInstructions9001 (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
   instructions.map((instruction, index) => {
     const { quantity, origin, destination } = instruction
-    const message = `Moving ${quantity} from ${origin} to ${destination}`
+    const message = `🏗️ Move ${index}: Moving ${quantity} from ${origin} to ${destination}`
     if (index % 50 === 0) print(message + '\n')
-
-    console.log(message)
-    console.table(stacks)
     const inFlightBoxes: string[] = []
     for (let i = 0; i < quantity; i++) {
       inFlightBoxes.unshift(stacks[origin]!.pop() ?? '')
     }
-    console.table(inFlightBoxes)
     for (let i = 0; i < quantity; i++) {
       stacks[destination]?.push(inFlightBoxes.shift()!)
     }
-    console.table(stacks)
-    console.log('🔥')
     return true
   })
   return stacks
@@ -138,7 +133,7 @@ function parseInstructions (lines: string[], print: (line?: string) => void) {
 function parseBoxes (lines: string[], print: (line?: string) => void) {
   const stacks: string[][] = []
 
-  lines.map((input, index) => {
+  lines.map((input, outerIndex) => {
     // eslint-disable-next-line no-useless-escape
     const isBoxRow = /[\[\]]+/
     const result = input.match(isBoxRow)
@@ -151,8 +146,8 @@ function parseBoxes (lines: string[], print: (line?: string) => void) {
       letters?.map((letter, index) => {
         if (letter == null) return false
         if (stacks[index] == null) stacks[index] = []
-        if (index % 3 === 0) {
-          print(`I think ${letter} goes into stack ${index}.\n`)
+        if (outerIndex % 2 === 0) {
+          print(`📋 Schematic Readout for strata #${outerIndex}: ${letter} goes into stack ${index}.\n`)
         }
         stacks[index]?.unshift(letter)
         return true
