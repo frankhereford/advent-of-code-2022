@@ -1,4 +1,4 @@
-# [https://snowday.gg](snowday.gg) ❄️☃️
+# [https://snowday.gg](https://snowday.gg) ❄️☃️
 
 ## Frank's Advent of Code attempt for 2022
 
@@ -6,5 +6,5 @@
 
 * End-to-end TypeScript compliance
   * No `any` anywhere without exceptional reason
-  * No `no-null-assertion` linting errors
+  * ~No `no-null-assertion` linting errors~
   
