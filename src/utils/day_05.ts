@@ -40,6 +40,12 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   const organizedStacks = processInstructions(instructions, stacks, print)
   console.table(organizedStacks)
 
+  const topCrates = organizedStacks.map((stack, index) => {
+    return stack.pop()
+  })
+  console.log(topCrates)
+  print(`The top crates are ${topCrates.join('')}.`)
+
   // * return null here to get that extra space before the waiting terminal prompt
   return null
 }
