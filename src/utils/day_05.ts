@@ -12,7 +12,7 @@ const invocation = '️/legacy/bin/turing thisSideUp.tape'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(testInput, print))
+  print(puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
@@ -31,19 +31,13 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
 
   // stacks are going to be index 0 on the bottom
-  const stacks = parseBoxes(lines, print)
-  // console.table(stacks)
+  let stacks = parseBoxes(lines, print)
 
   print()
-
   const instructions = parseInstructions(lines, print)
-  // console.table(instructions)
-
   print()
 
   const organizedStacksPartOne = processInstructionsOneByOne(instructions, stacks, print)
-  console.table(organizedStacksPartOne)
-
   const topCratesPartOne = organizedStacksPartOne.map((stack, index) => {
     return stack.pop()
   })
@@ -56,8 +50,11 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   print('🏗️ Install the CrateMover 9001. It\'s over 9000!')
   print()
 
+  // fresh stacks
+  stacks = parseBoxes(lines, print)
+
   const organizedStacksPartTwo = processInstructions9001(instructions, stacks, print)
-  console.table(organizedStacksPartTwo)
+  // console.table(organizedStacksPartTwo)
 
   const topCratesPartTwo = organizedStacksPartTwo.map((stack, index) => {
     return stack.pop()
@@ -66,7 +63,6 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   print()
   print(`The top crates are ${topCratesPartTwo.join('')}.`)
   print()
-
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
@@ -94,20 +90,25 @@ function processInstructions9001 (instructions: Move[], stacks: string[][], prin
     const { quantity, origin, destination } = instruction
     const message = `Moving ${quantity} from ${origin} to ${destination}`
     if (index % 50 === 0) print(message + '\n')
+
+    console.log(message)
+    console.table(stacks)
+    const inFlightBoxes: string[] = []
     for (let i = 0; i < quantity; i++) {
-      const box = stacks[origin]!.pop()
-      stacks[destination]!.push(box!)
+      inFlightBoxes.unshift(stacks[origin]!.pop() ?? '')
     }
+    console.table(inFlightBoxes)
+    for (let i = 0; i < quantity; i++) {
+      stacks[destination]?.push(inFlightBoxes.shift()!)
+    }
+    console.table(stacks)
+    console.log('🔥')
     return true
   })
   return stacks
 }
 /*
-    const inFlightBoxes: string[] = []
-    for (let i = 0; i < quantity; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      inFlightBoxes.unshift(stacks[origin]!.pop() ?? '')
-    }
+
     console.log('inFlightBoxes: ', inFlightBoxes)
     for (let i = quantity; i > 0; i--) {
       stacks[destination]?.push(inFlightBoxes.shift() ?? '')
