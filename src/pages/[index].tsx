@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import NoSSR from 'react-no-ssr'
@@ -44,6 +43,7 @@ interface day {
 }
 
 const getMinorVersion = (version: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [major, minor, patch] = version.split('.').map((v) => parseInt(v))
   return minor ?? 1
 }
