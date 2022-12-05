@@ -20,28 +20,55 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
+interface Move {
+  quantity: number
+  origin: number
+  destination: number
+}
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
 
   // stacks are going to be index 0 on the bottom
   const stacks = parseBoxes(lines, print)
-  console.table(stacks)
+  // console.table(stacks)
 
   const instructions = parseInstructions(lines, print)
-  console.table(instructions)
+  // console.table(instructions)
+
+  const organizedStacks = processInstructions(instructions, stacks, print)
+  //console.log(organizedStacks)
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
 }
 
-function parseInstructions (lines: string[], print: (line?: string) => void) {
-  interface Move {
-    quantity: number
-    origin: number
-    destination: number
-  }
 
+
+function processInstructions (instructions: Move[], stacks: string[][], print: (line?: string) => void) {
+  instructions.map((instruction, index) => {
+    const { quantity, origin, destination } = instruction
+    const message = `Moving ${quantity} from ${origin} to ${destination}`
+    print(message + '\n')
+    console.log('🍀🔥🎩')
+    console.table(stacks)
+    console.log(message)
+    const inFlightBoxes: string[] = []
+    for (let i = 0; i < quantity; i++) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      inFlightBoxes.unshift(stacks[origin]!.pop() ?? '')
+    }
+    console.log('inFlightBoxes: ', inFlightBoxes)
+    for (let i = quantity; i > 0; i--) {
+      stacks[destination]?.push(inFlightBoxes.shift() ?? '')
+    }
+    //stacks[destination]?.concat(inFlightBoxes)
+    console.table(stacks)
+    return true
+  })
+}
+
+function parseInstructions (lines: string[], print: (line?: string) => void) {
   const moves: Move[] = []
   lines.map((input, index) => {
     const movePattern = /move (\d+) from (\d+) to (\d+)/
@@ -49,8 +76,8 @@ function parseInstructions (lines: string[], print: (line?: string) => void) {
     if (moveResult !== null) {
       const move = {
         quantity: parseInt(moveResult[1] ?? '0'),
-        origin: parseInt(moveResult[2] ?? '0'),
-        destination: parseInt(moveResult[3] ?? '0')
+        origin: parseInt(moveResult[2] ?? '0') - 1, // make instructions zero-indexed
+        destination: parseInt(moveResult[3] ?? '0') - 1
       }
       moves.push(move)
     }
