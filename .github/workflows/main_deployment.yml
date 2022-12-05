@@ -81,6 +81,6 @@ jobs:
           echo "️🧶 yarn install"
           yarn install
           echo "🚀 Vercel build"
-          vercel --token=${{ secrets.VERCEL_TOKEN }} --build-env --prod
+          vercel --token=${{ secrets.VERCEL_TOKEN }} --prod
           echo ""
           echo "🏁 Finished"
