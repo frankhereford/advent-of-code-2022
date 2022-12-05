@@ -78,11 +78,9 @@ jobs:
 
       - name: "Deploy production site"
         run: |
-          echo "🛠️ yarn install"
+          echo "️🧶 yarn install"
           yarn install
           echo "🚀 Vercel build"
-          vercel --token=${{ secrets.VERCEL_TOKEN }} \
-            --build-env \
-            --prod
+          vercel --token=${{ secrets.VERCEL_TOKEN }} --build-env --prod
           echo ""
           echo "🏁 Finished"
