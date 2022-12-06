@@ -5,7 +5,8 @@ import packageJson from './package.json' assert { type: 'json' }
 // function which returns the minor version of the current package
 const getMinorVersion = () => {
   const version = packageJson.version
-  const minorVersion = version.split('.').slice(0, 2).join('.')
+  const minorVersion = version.split('.').slice(1, 2).join('.')
+  console.log(minorVersion)
   return parseInt(minorVersion)
 }
 
