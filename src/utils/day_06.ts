@@ -29,6 +29,9 @@ function puzzleFunction (input: string[], print: (line?: string) => void) {
     const letters = signal.split('')
     for (let i = 4; i <= letters.length; i++) {
       const potentialMarker = letters.slice(i - 4, i)
+      if (i % 100 === 0) {
+        print(`🔎 Checking potential marker #${i}): ${potentialMarker.join('-')}\n`)
+      }
       // 🤖 compute how many elements of an array are unique
       const unique = potentialMarker.filter((v, i, a) => a.indexOf(v) === i)
       if (unique.length === 4) {
@@ -47,6 +50,9 @@ function puzzleFunction (input: string[], print: (line?: string) => void) {
     const letters = signal.split('')
     for (let i = 14; i <= letters.length; i++) {
       const potentialMarker = letters.slice(i - 14, i)
+      if (i % 100 === 0) {
+        print(`🔎 Checking potential marker #${i}): ${potentialMarker.join('-')}\n`)
+      }
       // 🤖 compute how many elements of an array are unique
       const unique = potentialMarker.filter((v, i, a) => a.indexOf(v) === i)
       if (unique.length === 14) {
