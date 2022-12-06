@@ -8,12 +8,13 @@ import { input, testInput } from './day_06_input'
 const terminalSpeed = 1
 const terminalVariability = 1
 
+// ! don't forget this!
 const problemStatement = 'Day 6 task: Introduce the tragedy..'
 const invocation = '️/legacy/bin/shakespeare fairVerona.script'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(testInput, print))
+  print(puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
