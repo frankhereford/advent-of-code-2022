@@ -22,6 +22,8 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
+// ! Prediction before laying in any code: The twist is to execute the fewest instructions possible to achieve n% disk capacity.
+
 function puzzleFunction (input: string, print: (line?: string) => void) {
 
 
