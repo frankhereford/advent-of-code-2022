@@ -1,5 +1,3 @@
-// import { defaultDay } from './src/pages/[index].ts'
-
 import packageJson from './package.json' assert { type: 'json' }
 
 // function which returns the minor version of the current package
@@ -25,12 +23,6 @@ const config = {
   // this is annoying when developing a solution on the "terminal"
   reactStrictMode: false,
   swcMinify: true,
-  /*
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en'
-  },
-  */
   async redirects () {
     return [
       {
@@ -39,6 +31,13 @@ const config = {
         permanent: false
       }
     ]
+  },
+  webpack (config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      fs: 'memfs'
+    }
+    return config
   }
 }
 export default config
