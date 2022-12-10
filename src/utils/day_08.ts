@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_08_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
 
-const problemStatement = 'Day 8 task: Introduce the tragedy..'
-const invocation = '️/legacy/bin/shakespeare fairVerona.script'
+const problemStatement = 'Day 8: This one goes out to Jennifer Miller @ UT. She introduced me to ATD, and she taught me that Canada (Charlie!) invented GIS in their forestry service around 1963. 💯\n\nSee this article by the late, great Roger Tomlinson: https://www.esri.com/news/arcnews/fall12articles/origins-of-the-canada-geographic-information-system.html'
+const invocation = '️cat ./sightlines.survey > /dev/theodolite # 📕 we lost he manual some ways back...'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -19,26 +22,43 @@ export default day
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
-  const intro = [
-    'Two households, both alike in dignity,',
-    'In fair Verona, where we lay our scene,',
-    'From ancient grudge break to new mutiny,',
-    'Where civil blood makes civil hands unclean.',
-    'From forth the fatal loins of these two foes',
-    'A pair of star-cross\'d lovers take their life;',
-    'Whose misadventured piteous overthrows',
-    'Do with their death bury their parents\' strife.',
-    'The fearful passage of their death-mark\'d love,',
-    'And the continuance of their parents\' rage,',
-    'Which, but their children\'s end, nought could remove,',
-    'Is now the two hours\' traffic of our stage;',
-    'The which if you with patient ears attend,',
-    'What here shall miss, our toil shall strive to mend.'
-  ]
-  intro.map((line) => {
-    print(line + '\n')
-    return true
-  })
+  const lines = input.split('\n')
+
+  // 🤖 make a typescript array of arrays of numbers
+  const numbers = lines.map(line => line.split('').map(n => parseInt(n)))
+
+  const isVisible = lines.map(line => line.split('').map(n => false))
+
+  // // * 👀 down via a file
+  // let y = 0
+  // for (let x = 0; x < numbers[y]!.length; x++) { // the column
+  //   let tallestTreeSeen = -1 // i like this to make every edge tree visible
+  //   for (let y = 0; y < numbers.length; y++) {
+  //     if (numbers[y]![x]! > tallestTreeSeen) {
+  //       console.log(`Looking down file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+  //       isVisible[y]![x] = true
+  //       tallestTreeSeen = numbers[y]![x]!
+  //     }
+  //   }
+  // }
+
+  // console.table(isVisible)
+
+  // // * 👀 right via a rank
+  // let x = 0
+  // for (let y = 0; y < numbers[x]!.length; y++) { // the column
+  //   let tallestTreeSeen = -1
+  //   for (let x = 0; x < numbers.length; x++) {
+  //     if (numbers[y]![x]! > tallestTreeSeen) {
+  //       console.log(`Looking right rank ${y}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+  //       isVisible[y]![x] = true
+  //       tallestTreeSeen = numbers[y]![x]!
+  //     }
+  //   }
+  // }
+
+  // console.table(isVisible)
+
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
