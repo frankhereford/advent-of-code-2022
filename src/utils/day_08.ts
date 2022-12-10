@@ -35,14 +35,13 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     let tallestTreeSeen = -1 // i like this to make every edge tree visible
     for (let y = 0; y < numbers.length; y++) {
       if (numbers[y]![x]! > tallestTreeSeen) {
-        console.log(`Looking down file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+        const msg = `Looking down file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible\n`
+        if (x % 20 === 0 && y % 20 === 0) print(msg)
         isVisible[y]![x] = true
         tallestTreeSeen = numbers[y]![x]!
       }
     }
   }
-
-  console.table(isVisible)
 
   // * 👀 right via a rank
   let x = 0
@@ -50,14 +49,13 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     let tallestTreeSeen = -1
     for (let x = 0; x < numbers.length; x++) {
       if (numbers[y]![x]! > tallestTreeSeen) {
-        console.log(`Looking right rank ${y}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+        const msg = `Looking right rank ${y}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible\n`
+        if (x % 20 === 0 && y % 20 === 0) print(msg)
         isVisible[y]![x] = true
         tallestTreeSeen = numbers[y]![x]!
       }
     }
   }
-
-  console.table(isVisible)
 
   // * 👀 up via a file
   y = 0
@@ -65,31 +63,29 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     let tallestTreeSeen = -1 // i like this to make every edge tree visible
     for (let y = numbers.length - 1; y >= 0; y--) {
       if (numbers[y]![x]! > tallestTreeSeen) {
-        console.log(`Looking up file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+        const msg = `Looking up via file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible\n`
+        if ((x - numbers.length) % 10 === 0 && (y - numbers.length) % 10 === 0) print(msg)
         isVisible[y]![x] = true
         tallestTreeSeen = numbers[y]![x]!
       }
     }
   }
 
-  console.table(isVisible)
-
-  // * 👀 right via a rank
+  // * 👀 left via a rank
   x = 0
   for (let y = 0; y < numbers[x]!.length; y++) { // the column
     let tallestTreeSeen = -1
     for (let x = numbers.length - 1; x >= 0; x--) {
       if (numbers[y]![x]! > tallestTreeSeen) {
-        console.log(`Looking right rank ${y}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible`)
+        const msg = `Looking left via rank ${y}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible\n`
+        if (x % 10 === 0 && y % 10 === 0) print(msg)
         isVisible[y]![x] = true
         tallestTreeSeen = numbers[y]![x]!
       }
     }
   }
 
-  console.table(isVisible)
-
-  // count the number of trues in a two dimensional array
+  // 🤖 count the number of trues in a two dimensional array
   const count = isVisible.reduce((acc, row) => {
     return acc + row.reduce((acc, cell) => {
       return acc + (cell ? 1 : 0)
