@@ -14,7 +14,7 @@ const invocation = '️du -Aachk / # Gesundheit'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(await puzzleFunction(testInput, print))
+  print(await puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
@@ -33,6 +33,7 @@ const getZeros = (n: number) => {
   return data
 }
 
+// recursion in recursion 🎲
 // 🤖 function which returns the size of a directory including its subdirectories and files in bytes
 const getDirSize = (dir: string) => {
   const files = fs.readdirSync(dir)
@@ -66,18 +67,17 @@ const removeUndefined = (arr: any[]) => {
 // function which walks a directory tree and returns an array of directories and their sizes
 
 
-const walkTree = (dir: string, threshold: number, directories: Directory[]) => {
-  console.log('lets walk: ', dir)
+const walkTreeForSize = (dir: string, directories: Directory[]) => {
+  // console.log('lets walk: ', dir)
   const files = fs.readdirSync(dir)
   // for (const file of files) {
-  const subdirectories = files.map((file) => {
-    // * ☠️ Yikes
+  files.forEach((file) => {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-base-to-string
     const filePath = `${dir}/${file}`
     const stats = fs.statSync(filePath)
     if (stats.isDirectory()) {
       const size = getDirSize(filePath)
-      directories = walkTree(filePath, threshold, directories)
+      directories = walkTreeForSize(filePath, directories)
       return directories.push({ filePath, size })
     } else {
       return directories
@@ -87,7 +87,6 @@ const walkTree = (dir: string, threshold: number, directories: Directory[]) => {
 
   return removeUndefined(directories)
 }
-
 
 async function createFiles (lines: string[]) {
   let pwd = ''
@@ -135,8 +134,8 @@ async function puzzleFunction (input: string, print: (line?: string) => void) {
       const size = getDirSize('/')
       console.log(`Total size: ${size} bytes`)
     })
-    .then(() => {
-      const directories = walkTree('/', 100000, [])
+    .then(async () => {
+      const directories = walkTreeForSize('/', [])
       console.log(directories)
       const size = directories.reduce((acc, dir) => {
         if (dir.size <= 100000) {
@@ -146,6 +145,32 @@ async function puzzleFunction (input: string, print: (line?: string) => void) {
         return acc
       }, 0)
       console.log(size)
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      print(`\n⭐️ Sum of directory sizes: ${size.toString()}\n`)
+    })
+    .then(() => {
+      const totalSize = getDirSize('/')
+      console.log(totalSize)
+      const availableSize = 70000000 - totalSize
+      console.log(availableSize)
+      const threshold = 30000000 - availableSize
+      console.log(threshold)
+      const directories = walkTreeForSize('/', []).sort((a, b) => {
+        return a.size - b.size
+      })
+
+      console.log(directories)
+      // find the first entry in an array of objects that meets a condition
+      console.table(directories)
+      // find index of first array element that meets a condition
+      const target = directories.find((dir) => {
+        return dir.size >= threshold
+      })
+
+      // sort directories by size
+      console.log(target)
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      print(`\n⭐️ Best directory to delete: ${target.filePath} of size ${target.size}\n`)
     })
     .catch((err) => {
       console.log(err)
