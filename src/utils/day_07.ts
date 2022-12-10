@@ -25,7 +25,6 @@ export default day
 
 // 🤖 function which returns n bytes of zeros
 const getZeros = (n: number) => {
-  // console.log('returning data of length', n)
   let data = ''
   for (let i = 0; i < n; i++) {
     data = data + '0'
@@ -58,17 +57,13 @@ interface Directory {
 }
 
 // 🤖 function which removes all the null entries from an array
-// ! any ... don't use this. type it. but it's not horribly wrong here.
+// ! any ... don't use this. type it. but it's not horribly wrong here...
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const removeUndefined = (arr: any[]) => {
   return arr.filter((item) => item !== null)
 }
 
-// function which walks a directory tree and returns an array of directories and their sizes
-
-
 const walkTreeForSize = (dir: string, directories: Directory[]) => {
-  // console.log('lets walk: ', dir)
   const files = fs.readdirSync(dir)
   // for (const file of files) {
   files.forEach((file) => {
@@ -83,7 +78,8 @@ const walkTreeForSize = (dir: string, directories: Directory[]) => {
       return directories
     }
   })
-  // directories.push({ filePath: '/', size: getDirSize('/') }) we don't count root in the sum
+  // * we don't count root in the sum
+  // directories.push({ filePath: '/', size: getDirSize('/') })
 
   return removeUndefined(directories)
 }
@@ -126,17 +122,12 @@ async function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
 
   createFiles(lines)
-    // ! this is tempting! don't do it. use the api.
+    // ! this is tempting! don't do it. use the fs api.
     // .then(() => {
     //   console.log(vol.toJSON())
     // })
-    .then(() => {
-      const size = getDirSize('/')
-      console.log(`Total size: ${size} bytes`)
-    })
     .then(async () => {
       const directories = walkTreeForSize('/', [])
-      console.log(directories)
       const size = directories.reduce((acc, dir) => {
         if (dir.size <= 100000) {
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -144,31 +135,20 @@ async function puzzleFunction (input: string, print: (line?: string) => void) {
         }
         return acc
       }, 0)
-      console.log(size)
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       print(`\n⭐️ Sum of directory sizes: ${size.toString()}\n`)
     })
     .then(() => {
       const totalSize = getDirSize('/')
-      console.log(totalSize)
       const availableSize = 70000000 - totalSize
-      console.log(availableSize)
       const threshold = 30000000 - availableSize
-      console.log(threshold)
       const directories = walkTreeForSize('/', []).sort((a, b) => {
         return a.size - b.size
       })
-
-      console.log(directories)
-      // find the first entry in an array of objects that meets a condition
-      console.table(directories)
-      // find index of first array element that meets a condition
       const target = directories.find((dir) => {
         return dir.size >= threshold
       })
 
-      // sort directories by size
-      console.log(target)
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       print(`\n⭐️ Best directory to delete: ${target.filePath} of size ${target.size}\n`)
     })
