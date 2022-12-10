@@ -12,7 +12,7 @@ const invocation = '️cat ./sightLines.survey > /dev/theodolite # 📕 we lost 
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -21,9 +21,7 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
-function puzzleFunction (input: string, print: (line?: string) => void) {
-  const lines = input.split('\n')
-
+function partOne (lines: string[], print: (line?: string) => void) {
   // 🤖 make a typescript array of arrays of numbers
   const numbers = lines.map(line => line.split('').map(n => parseInt(n)))
 
@@ -60,7 +58,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // * 👀 up via a file
   y = 0
   for (let x = 0; x < numbers[y]!.length; x++) { // the column
-    let tallestTreeSeen = -1 // i like this to make every edge tree visible
+    let tallestTreeSeen = -1
     for (let y = numbers.length - 1; y >= 0; y--) {
       if (numbers[y]![x]! > tallestTreeSeen) {
         const msg = `Looking up via file ${x}: Tree[${y}][${x}]: ${numbers[y]![x]!} is visible\n`
@@ -92,8 +90,79 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     }, 0)
   }, 0)
 
-  console.log(count)
+  print(`⭐️ ${count} trees are visible from the perimeter of the forest`)
+  return count
+}
 
+function partTwo (lines: string[], print: (line?: string) => void) {
+  // 🤖 make a typescript array of arrays of numbers
+  const numbers = lines.map(line => line.split('').map(n => parseInt(n)))
+
+
+  const y = 0
+  for (let x = 0; x < numbers[y]!.length; x++) { // the column
+    for (let y = 0; y < numbers.length - 1; y++) {
+      const msg = `Inspecting from tree ${y} ${x}\n`
+      console.log('')
+      console.log(msg)
+      print(msg)
+
+      const localHeight = numbers[y]![x]!
+
+      // * 👀 look down
+      let seeDistanceDown = 0
+      let maxHeightSeenDown = -1
+      let finished = false
+      if (numbers[y + 1]![x]! < localHeight) seeDistanceDown = seeDistanceDown + 1
+      for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
+        if (!finished) {
+          if (numbers[yPeek]![x]! > maxHeightSeenDown) {
+            finished = true
+          }
+          seeDistanceDown = seeDistanceDown + 1 // where is the ++ operator, for real?
+          maxHeightSeenDown = numbers[yPeek]![x]!
+        }
+
+        const msg = `Looking down from ${y} ${x} at ${yPeek} ${x}\n`
+        print(msg)
+        console.log(`seenCount(${yPeek},${x}) = (height: ${numbers[yPeek]![x]!}): max height seen: ${maxHeightSeenDown} / seenDistance: ${seeDistanceDown}`)
+      }
+
+      console.log('final seenCountDown: ', seeDistanceDown)
+      // seenCountDown = seenCountDown + 1
+
+      // // * 👀 look right
+      // let maxSeenRight = -1
+      // let seenCountRight = 0
+      // for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
+      //   if (numbers[y]![xPeek]! > maxSeenRight) {
+      //     seenCountRight++
+      //     maxSeenRight = numbers[y]![xPeek]!
+      //   }
+      //   // console.log(`Looking right from ${y} ${x} at ${y} ${xPeek}`)
+      //   console.log(`seenCount ${y} ${xPeek} (height: ${numbers[y]![xPeek]!}): ${seenCountRight}`)
+      // }
+      // seenCountRight = seenCountRight + 1
+
+
+
+    }
+  }
+
+
+
+  console.table(numbers)
+}
+
+
+function puzzleFunction (input: string, print: (line?: string) => void) {
+  const lines = input.split('\n')
+
+  partOne(lines, print)
+  print()
+
+  partTwo(lines, print)
+  print()
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
