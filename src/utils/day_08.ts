@@ -106,7 +106,8 @@ function partTwo (lines: string[], print: (line?: string) => void) {
       const localHeight = numbers[y]![x]!
 
       if (y === 1 && x === 2) {
-      //if (y === 3 && x === 2) {
+      // if (y === 3 && x === 2) {
+      // if (y === 3 && x === 2) {
 
         const msg = `Inspecting from tree ${y} ${x}, height: ${localHeight}\n`
         console.log('')
@@ -114,29 +115,42 @@ function partTwo (lines: string[], print: (line?: string) => void) {
         print(msg)
 
 
-        // let lookDown = 0
-        // for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
-        //   console.log(`Inspecting down ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
-        //   lookDown++
-        //   if (numbers[yPeek]![x]! >= localHeight) {
-        //     console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
-        //     break
-        //   }
-        // }
-        // console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
+        let lookDown = 0
+        for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
+          console.log(`Inspecting down ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
+          lookDown++
+          if (numbers[yPeek]![x]! >= localHeight) {
+            console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
+            break
+          }
+        }
+        console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
 
 
+        let lookRight = 0
+        for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
+          console.log(`Inspecting right ${y} ${xPeek}, height: ${numbers[y]![xPeek]!}`)
+          lookRight++
+          if (numbers[y]![xPeek]! >= localHeight) {
+            console.log(`Broken sight line (right) at ${y} ${xPeek} - height: ${numbers[y]![xPeek]!}`)
+            break
+          }
+        }
+        console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
 
-        // let lookRight = 0
-        // for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
-        //   console.log(`Inspecting right ${y} ${xPeek}, height: ${numbers[y]![xPeek]!}`)
-        //   lookRight++
-        //   if (numbers[y]![xPeek]! >= localHeight) {
-        //     console.log(`Broken sight line (right) at ${y} ${xPeek} - height: ${numbers[y]![xPeek]!}`)
-        //     break
-        //   }
-        // }
-        // console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
+
+        let lookUp = 0
+        for (let yPeek = y - 1; yPeek >= 0; yPeek--) {
+          console.log(`Inspecting up ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
+          lookUp++
+          if (numbers[yPeek]![x]! >= localHeight) {
+            console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
+            break
+          }
+        }
+        console.log(`final lookUp for (${y}, ${x}): ${lookUp}`)
+
+
 
 
 
