@@ -3,12 +3,13 @@
 /* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { debug } from 'console'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_08_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
 
-const problemStatement = 'Day 8: This one goes out to Jennifer Miller @ UT. She introduced me to ATD, and she taught me that Canada (Charlie!) invented GIS in their forestry service around 1963. 💯\n\nSee this article by the late, great Roger Tomlinson: https://www.esri.com/news/arcnews/fall12articles/origins-of-the-canada-geographic-information-system.html'
+const problemStatement = 'Day 8: This one goes out to Jennifer Miller @ UT. ✨ She introduced me to ATD, and she taught me that Canada (Charlie!) invented GIS in their forestry service around 1963. 💯\n\nSee this article by the late, great Roger Tomlinson: https://www.esri.com/news/arcnews/fall12articles/origins-of-the-canada-geographic-information-system.html'
 const invocation = '️cat ./sightLines.survey > /dev/theodolite # 📕 we lost the manual some ways back...'
 
 async function solution (print: (line?: string | null) => void) {
@@ -106,14 +107,14 @@ function partTwo (lines: string[], print: (line?: string) => void) {
     for (let y = 0; y < numbers.length; y++) {
       const localHeight = numbers[y]![x]!
 
-      // if (y === 1 && x === 2) {
-      // if (y === 3 && x === 2) {
-      // if (y === 3 && x === 2) {
+      // if (y === 1 && x === 2) { }
+      // if (y === 3 && x === 2) { }
+      // if (y === 3 && x === 2) { }
 
-      const msg = `Inspecting from tree ${y} ${x}, height: ${localHeight}\n`
-      console.log('')
-      console.log(msg)
-      print(msg)
+      // const msg = `Inspecting from tree ${y} ${x}, height: ${localHeight}\n`
+      // console.log('')
+      // console.log(msg)
+      // print(msg)
 
 
       let lookDown = 0
@@ -125,7 +126,7 @@ function partTwo (lines: string[], print: (line?: string) => void) {
           break
         }
       }
-      console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
+      // console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
 
 
       let lookRight = 0
@@ -137,7 +138,7 @@ function partTwo (lines: string[], print: (line?: string) => void) {
           break
         }
       }
-      console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
+      // console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
 
 
       let lookUp = 0
@@ -149,7 +150,7 @@ function partTwo (lines: string[], print: (line?: string) => void) {
           break
         }
       }
-      console.log(`final lookUp for (${y}, ${x}): ${lookUp}`)
+      // console.log(`final lookUp for (${y}, ${x}): ${lookUp}`)
 
 
       let lookLeft = 0
@@ -161,12 +162,11 @@ function partTwo (lines: string[], print: (line?: string) => void) {
           break
         }
       }
-      console.log(`final lookLeft for (${y}, ${x}): ${lookLeft}`)
+      // console.log(`final lookLeft for (${y}, ${x}): ${lookLeft}`)
 
       const scenicScore = lookDown * lookRight * lookUp * lookLeft
-      console.log(`🌲 Scenic score for (${y}, ${x}): ${scenicScore}`)
+      // console.log(`🌲 Scenic score for (${y}, ${x}): ${scenicScore}`)
 
-      // }
 
       if (scenicScore > bestScenicScore.score) {
         bestScenicScore.score = scenicScore
@@ -174,11 +174,14 @@ function partTwo (lines: string[], print: (line?: string) => void) {
         bestScenicScore.y = y
       }
 
+      const mod = 30
+      if (x % mod === 0 && y % mod === 0) print(`🌲 Scenic score for (${y}, ${x}): ${scenicScore}\n`)
+
 
     }
   }
 
-  console.log(`🌲 Best scenic score: ${bestScenicScore.score} at (${bestScenicScore.y}, ${bestScenicScore.x})`)
+  print(`⭐️ Best scenic score: ${bestScenicScore.score} at (${bestScenicScore.y}, ${bestScenicScore.x})`)
 
 }
 
@@ -187,6 +190,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   const lines = input.split('\n')
 
   partOne(lines, print)
+  print()
   print()
 
   partTwo(lines, print)
