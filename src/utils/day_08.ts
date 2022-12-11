@@ -99,68 +99,86 @@ function partTwo (lines: string[], print: (line?: string) => void) {
   // 🤖 make a typescript array of arrays of numbers
   const numbers = lines.map(line => line.split('').map(n => parseInt(n)))
 
+  const bestScenicScore = { x: 0, y: 0, score: 0 }
 
   const y = 0
   for (let x = 0; x < numbers[y]!.length; x++) { // the column
     for (let y = 0; y < numbers.length; y++) {
       const localHeight = numbers[y]![x]!
 
-      if (y === 1 && x === 2) {
+      // if (y === 1 && x === 2) {
       // if (y === 3 && x === 2) {
       // if (y === 3 && x === 2) {
 
-        const msg = `Inspecting from tree ${y} ${x}, height: ${localHeight}\n`
-        console.log('')
-        console.log(msg)
-        print(msg)
+      const msg = `Inspecting from tree ${y} ${x}, height: ${localHeight}\n`
+      console.log('')
+      console.log(msg)
+      print(msg)
 
 
-        let lookDown = 0
-        for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
-          console.log(`Inspecting down ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
-          lookDown++
-          if (numbers[yPeek]![x]! >= localHeight) {
-            console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
-            break
-          }
+      let lookDown = 0
+      for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
+        // console.log(`Inspecting down ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
+        lookDown++
+        if (numbers[yPeek]![x]! >= localHeight) {
+          // console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
+          break
         }
-        console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
+      }
+      console.log(`final lookDown for (${y}, ${x}): ${lookDown}`)
 
 
-        let lookRight = 0
-        for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
-          console.log(`Inspecting right ${y} ${xPeek}, height: ${numbers[y]![xPeek]!}`)
-          lookRight++
-          if (numbers[y]![xPeek]! >= localHeight) {
-            console.log(`Broken sight line (right) at ${y} ${xPeek} - height: ${numbers[y]![xPeek]!}`)
-            break
-          }
+      let lookRight = 0
+      for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
+        // console.log(`Inspecting right ${y} ${xPeek}, height: ${numbers[y]![xPeek]!}`)
+        lookRight++
+        if (numbers[y]![xPeek]! >= localHeight) {
+          // console.log(`Broken sight line (right) at ${y} ${xPeek} - height: ${numbers[y]![xPeek]!}`)
+          break
         }
-        console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
+      }
+      console.log(`final lookRight for (${y}, ${x}): ${lookRight}`)
 
 
-        let lookUp = 0
-        for (let yPeek = y - 1; yPeek >= 0; yPeek--) {
-          console.log(`Inspecting up ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
-          lookUp++
-          if (numbers[yPeek]![x]! >= localHeight) {
-            console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
-            break
-          }
+      let lookUp = 0
+      for (let yPeek = y - 1; yPeek >= 0; yPeek--) {
+        // console.log(`Inspecting up ${yPeek} ${x}, height: ${numbers[yPeek]![x]!}`)
+        lookUp++
+        if (numbers[yPeek]![x]! >= localHeight) {
+          // console.log(`Broken sight line (right) at ${yPeek} ${x} - height: ${numbers[yPeek]![x]!}`)
+          break
         }
-        console.log(`final lookUp for (${y}, ${x}): ${lookUp}`)
+      }
+      console.log(`final lookUp for (${y}, ${x}): ${lookUp}`)
 
 
+      let lookLeft = 0
+      for (let xPeek = x - 1; xPeek >= 0; xPeek--) {
+        // console.log(`Inspecting left ${y} ${xPeek}, height: ${numbers[y]![xPeek]!}`)
+        lookLeft++
+        if (numbers[y]![xPeek]! >= localHeight) {
+          // console.log(`Broken sight line (right) at ${y} ${xPeek} - height: ${numbers[y]![xPeek]!}`)
+          break
+        }
+      }
+      console.log(`final lookLeft for (${y}, ${x}): ${lookLeft}`)
 
+      const scenicScore = lookDown * lookRight * lookUp * lookLeft
+      console.log(`🌲 Scenic score for (${y}, ${x}): ${scenicScore}`)
 
+      // }
 
+      if (scenicScore > bestScenicScore.score) {
+        bestScenicScore.score = scenicScore
+        bestScenicScore.x = x
+        bestScenicScore.y = y
       }
 
 
     }
   }
 
-
+  console.log(`🌲 Best scenic score: ${bestScenicScore.score} at (${bestScenicScore.y}, ${bestScenicScore.x})`)
 
 }
 
