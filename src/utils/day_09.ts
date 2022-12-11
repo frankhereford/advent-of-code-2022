@@ -22,6 +22,7 @@ export default day
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
 
+  // no code yet prediction: part 2 let's the rope have length n
 
 
 
