@@ -1,11 +1,13 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { input, testInput } from './day_09_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
 
-const problemStatement = 'Day 9 task: Introduce the tragedy..'
-const invocation = '️/legacy/bin/shakespeare fairVerona.script'
+const problemStatement = 'Day 9 task: Something about string theory, you are not really sure.. 🧶🤔'
+const invocation = '️/sbin/boltzmanBrain -i /dev/universe -f reality[rope] -i state.json -o futureDeltaT.next'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
@@ -19,26 +21,9 @@ export default day
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
-  const intro = [
-    'Two households, both alike in dignity,',
-    'In fair Verona, where we lay our scene,',
-    'From ancient grudge break to new mutiny,',
-    'Where civil blood makes civil hands unclean.',
-    'From forth the fatal loins of these two foes',
-    'A pair of star-cross\'d lovers take their life;',
-    'Whose misadventured piteous overthrows',
-    'Do with their death bury their parents\' strife.',
-    'The fearful passage of their death-mark\'d love,',
-    'And the continuance of their parents\' rage,',
-    'Which, but their children\'s end, nought could remove,',
-    'Is now the two hours\' traffic of our stage;',
-    'The which if you with patient ears attend,',
-    'What here shall miss, our toil shall strive to mend.'
-  ]
-  intro.map((line) => {
-    print(line + '\n')
-    return true
-  })
+
+
+
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
