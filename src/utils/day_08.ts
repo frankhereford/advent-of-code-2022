@@ -2,6 +2,7 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { debug } from 'console'
 import { input, testInput } from './day_08_input'
 
 const terminalSpeed = 1
@@ -109,40 +110,48 @@ function partTwo (lines: string[], print: (line?: string) => void) {
 
       const localHeight = numbers[y]![x]!
 
-      // * 👀 look down
-      let seeDistanceDown = 0
-      let maxHeightSeenDown = -1
-      let finished = false
-      if (numbers[y + 1]![x]! < localHeight) seeDistanceDown = seeDistanceDown + 1
-      for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
-        if (!finished) {
-          if (numbers[yPeek]![x]! > maxHeightSeenDown) {
-            finished = true
-          }
-          seeDistanceDown = seeDistanceDown + 1 // where is the ++ operator, for real?
-          maxHeightSeenDown = numbers[yPeek]![x]!
-        }
+      // // * 👀 look down
+      // let seeDistanceDown = 0
+      // let maxHeightSeenDown = -1
+      // let finished = false
+      // if (numbers[y + 1]![x]! < localHeight) seeDistanceDown = seeDistanceDown + 1
+      // for (let yPeek = y + 1; yPeek < numbers.length - 1; yPeek++) {
+      //   if (!finished) {
+      //     if (numbers[yPeek]![x]! > maxHeightSeenDown) {
+      //       finished = true
+      //     }
+      //     seeDistanceDown = seeDistanceDown + 1 // where is the ++ operator, for real?
+      //     maxHeightSeenDown = numbers[yPeek]![x]!
+      //   }
+      //   const msg = `Looking down from ${y} ${x} at ${yPeek} ${x}\n`
+      //   print(msg)
+      //   console.log(`seenCount(${yPeek},${x}) = (height: ${numbers[yPeek]![x]!}): max height seen: ${maxHeightSeenDown} / seenDistance: ${seeDistanceDown}`)
+      // }
+      // console.log('final seenCountDown: ', seeDistanceDown)
 
-        const msg = `Looking down from ${y} ${x} at ${yPeek} ${x}\n`
-        print(msg)
-        console.log(`seenCount(${yPeek},${x}) = (height: ${numbers[yPeek]![x]!}): max height seen: ${maxHeightSeenDown} / seenDistance: ${seeDistanceDown}`)
-      }
-
-      console.log('final seenCountDown: ', seeDistanceDown)
-      // seenCountDown = seenCountDown + 1
 
       // // * 👀 look right
-      // let maxSeenRight = -1
-      // let seenCountRight = 0
-      // for (let xPeek = x + 1; xPeek < numbers[y]!.length; xPeek++) {
-      //   if (numbers[y]![xPeek]! > maxSeenRight) {
-      //     seenCountRight++
-      //     maxSeenRight = numbers[y]![xPeek]!
+      // let seeDistanceRight = 0
+      // let maxHeightSeenRight = -1
+      // let finished = false
+
+      // if (numbers[y]![x + 1]! < localHeight) seeDistanceRight = seeDistanceRight + 1
+      // for (let xPeek = x + 1; xPeek < numbers.length - 1; xPeek++) {
+      //   console.log(`Inspecting ${y} ${xPeek}`)
+      //   if (!finished) {
+      //     if (numbers[y]![xPeek]! >= maxHeightSeenRight) {
+      //       finished = true
+      //     }
+      //     seeDistanceRight = seeDistanceRight + 1
+      //     maxHeightSeenRight = numbers[y]![xPeek]!
+      //     console.log(`seenCount(${y},${xPeek}) = (height: ${numbers[y]![xPeek]!}): max height seen: ${maxHeightSeenRight} / seenDistance: ${seeDistanceRight}`)
       //   }
-      //   // console.log(`Looking right from ${y} ${x} at ${y} ${xPeek}`)
-      //   console.log(`seenCount ${y} ${xPeek} (height: ${numbers[y]![xPeek]!}): ${seenCountRight}`)
       // }
-      // seenCountRight = seenCountRight + 1
+      // console.log('final seenCountRight: ', seeDistanceRight)
+
+
+
+
 
 
 
