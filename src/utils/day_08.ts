@@ -13,7 +13,7 @@ const invocation = '️cat ./sightLines.survey > /dev/theodolite # 📕 we lost 
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(testInput, print))
+  print(puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
