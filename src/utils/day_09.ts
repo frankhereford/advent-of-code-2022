@@ -14,7 +14,7 @@ const invocation = '️sudo /sbin/boltzmannBrain -i /dev/universe -f reality[rop
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -68,11 +68,13 @@ function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: {
 }
 
 
-function puzzleFunction (input: string, print: (line?: string) => void) {
-  console.clear()
-  const lines = input.split('\n')
+// typescript type for an array of arrays of x, y coordinates
+interface Coordinate { x: number, y: number }
+type Rope = Coordinate[]
+type RopeHistory = Rope[]
 
-  // no code yet prediction: part 2 let's the rope have length n
+
+function simulateRope (lines: string[], print: (line?: string) => void, ropeLength: number) {
 
   const history: Array<{ head: { x: number, y: number }, tail: { x: number, y: number } }> = [{ head: { x: 0, y: 0 }, tail: { x: 0, y: 0 } }]
   // console.log(history)
@@ -97,14 +99,14 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 
       if (Math.abs(nextState.head.x - nextState.tail.x) > 1 || Math.abs(nextState.head.y - nextState.tail.y) > 1) {
         /* eslint-disable no-multi-spaces */
-        if (nextState.head.x === nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y - 1 }       // up
-        else if (nextState.head.x > nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y - 1 }   // up-right
-        else if (nextState.head.x > nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y }       // right
-        else if (nextState.head.x > nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y + 1 }   // down-right
-        else if (nextState.head.x === nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y + 1 }       // down
-        else if (nextState.head.x < nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y + 1 }   // down-left
-        else if (nextState.head.x < nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y }       // left
-        else if (nextState.head.x < nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y - 1 }   // up-left
+        if (nextState.head.x === nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail = { x: nextState.tail.x, y: nextState.tail.y - 1 }       // up
+        else if (nextState.head.x > nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y - 1 }   // up-right
+        else if (nextState.head.x > nextState.tail.x && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y }       // right
+        else if (nextState.head.x > nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y + 1 }   // down-right
+        else if (nextState.head.x === nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail = { x: nextState.tail.x, y: nextState.tail.y + 1 }       // down
+        else if (nextState.head.x < nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y + 1 }   // down-left
+        else if (nextState.head.x < nextState.tail.x && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y }       // left
+        else if (nextState.head.x < nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y - 1 }   // up-left
         /* eslint-enable no-multi-spaces */
       }
 
@@ -125,7 +127,16 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // console.log(uniqueTailCoords)
   console.log(uniqueTailCoords.length)
 
+}
 
+
+function puzzleFunction (input: string, print: (line?: string) => void) {
+  console.clear()
+  const lines = input.split('\n')
+
+  // no code yet prediction: part 2 let's the rope have length n
+
+  simulateRope(lines, print, 1)
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
