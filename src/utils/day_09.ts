@@ -14,7 +14,7 @@ const invocation = '️sudo /sbin/boltzmannBrain -i /dev/universe -f reality[rop
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(testInput, print))
+  print(puzzleFunction(input, print))
   print('frank@advent-of-code $')
 }
 
@@ -26,7 +26,6 @@ export default day
 
 function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: { x: number, y: number } }>, print: (line?: string) => void) {
   // 🤖 find the largest value of history.head[x] and history.head[y]
-  // console.log(history)
   const maxHeadX = Math.max(...history.map((state) => state.head.x))
   const maxHeadY = Math.max(...history.map((state) => state.head.y))
   const minHeadX = Math.min(...history.map((state) => state.head.x))
@@ -60,7 +59,7 @@ function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: {
     output += '\n'
   }
 
-  console.log(output)
+  // console.log(output)
   if (history.length % 10 === 0) {
     // print(`State after move ${history.length}:\n`)
     // print(output)
@@ -76,11 +75,11 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
   // no code yet prediction: part 2 let's the rope have length n
 
   const history: Array<{ head: { x: number, y: number }, tail: { x: number, y: number } }> = [{ head: { x: 0, y: 0 }, tail: { x: 0, y: 0 } }]
-  console.log(history)
+  // console.log(history)
   lines.forEach((line) => {
     if (line == null) return
     // console.log('------')
-    console.log('Instruction: ', line)
+    // console.log('Instruction: ', line)
     const direction = line.split(' ')[0]
     const distance = parseInt(line.split(' ')[1]!)
 
@@ -123,7 +122,7 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     if (acc.includes(coord)) return acc
     return [...acc, coord]
   }, [])
-  console.log(uniqueTailCoords)
+  // console.log(uniqueTailCoords)
   console.log(uniqueTailCoords.length)
 
 
