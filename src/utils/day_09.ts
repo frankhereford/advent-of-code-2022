@@ -70,12 +70,13 @@ function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: {
 
 
 function puzzleFunction (input: string, print: (line?: string) => void) {
+  console.clear()
   const lines = input.split('\n')
 
   // no code yet prediction: part 2 let's the rope have length n
 
   const history: Array<{ head: { x: number, y: number }, tail: { x: number, y: number } }> = [{ head: { x: 0, y: 0 }, tail: { x: 0, y: 0 } }]
-  // console.log(history)
+  console.log(history)
   lines.forEach((line) => {
     if (line == null) return
     // console.log('------')
@@ -97,19 +98,21 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
 
       if (Math.abs(nextState.head.x - nextState.tail.x) > 1 || Math.abs(nextState.head.y - nextState.tail.y) > 1) {
         /* eslint-disable no-multi-spaces */
-        if (nextState.head.x === nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y + 1 }       // up
-        if (nextState.head.x > nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y + 1 }   // up-right
-        if (nextState.head.x > nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y }       // right
-        if (nextState.head.x > nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y - 1 }   // down-right
-        if (nextState.head.x === nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y - 1 }       // down
-        if (nextState.head.x < nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y - 1 }   // down-left
-        if (nextState.head.x < nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y }       // left
-        if (nextState.head.x < nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y + 1 }   // up-left
+        if (nextState.head.x === nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y - 1 }       // up
+        else if (nextState.head.x > nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y - 1 }   // up-right
+        else if (nextState.head.x > nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y }       // right
+        else if (nextState.head.x > nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y + 1 }   // down-right
+        else if (nextState.head.x === nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y + 1 }       // down
+        else if (nextState.head.x < nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y + 1 }   // down-left
+        else if (nextState.head.x < nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y }       // left
+        else if (nextState.head.x < nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y - 1 }   // up-left
         /* eslint-enable no-multi-spaces */
       }
 
       history.push(nextState)
       visualizeRope(history, print)
+      // console.log(history.length, history)
+      // console.log('done processing step')
     }
   })
 
@@ -120,7 +123,8 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     if (acc.includes(coord)) return acc
     return [...acc, coord]
   }, [])
-  // console.log(uniqueTailCoords.length + 1)
+  console.log(uniqueTailCoords)
+  console.log(uniqueTailCoords.length)
 
 
 
