@@ -26,7 +26,7 @@ export default day
 
 function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: { x: number, y: number } }>, print: (line?: string) => void) {
   // 🤖 find the largest value of history.head[x] and history.head[y]
-  console.log(history)
+  // console.log(history)
   const maxHeadX = Math.max(...history.map((state) => state.head.x))
   const maxHeadY = Math.max(...history.map((state) => state.head.y))
   const minHeadX = Math.min(...history.map((state) => state.head.x))
@@ -40,12 +40,6 @@ function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: {
   const maxY = Math.max(maxHeadY, maxTailY)
   const minX = Math.min(minHeadX, minTailX)
   const minY = Math.min(minHeadY, minTailY)
-
-  // console.log('maxX: ', maxX)
-  // console.log('maxY: ', maxY)
-  // console.log('minX: ', minX)
-  // console.log('minY: ', minY)
-
 
   let output = ''
   const grid: string[][] = []
@@ -67,6 +61,11 @@ function visualizeRope (history: Array<{ head: { x: number, y: number }, tail: {
   }
 
   console.log(output)
+  if (history.length % 10 === 0) {
+    // print(`State after move ${history.length}:\n`)
+    // print(output)
+    // print()
+  }
 }
 
 
@@ -84,25 +83,46 @@ function puzzleFunction (input: string, print: (line?: string) => void) {
     const direction = line.split(' ')[0]
     const distance = parseInt(line.split(' ')[1]!)
 
-    // * most recent state of head
-    const xHead = history[history.length - 1]!.head.x
-    const yHead = history[history.length - 1]!.head.y
-    const xTail = history[history.length - 1]!.tail.x
-    const yTail = history[history.length - 1]!.tail.y
-
-
-    for (let scalar = 0; scalar <= distance; scalar++) {
+    for (let scalar = 0; scalar < distance; scalar++) {
       // @rose, i got so burnt by pass by reference here, i'll never recover!! 🔥
       const nextState = _.cloneDeep(history[history.length - 1])
-      if (direction === 'D') nextState!.head = { x: xHead, y: yHead + scalar }
-      if (direction === 'U') nextState!.head = { x: xHead, y: yHead - scalar }
-      if (direction === 'R') nextState!.head = { x: xHead + scalar, y: yHead }
-      if (direction === 'L') nextState!.head = { x: xHead - scalar, y: yHead }
-      nextState!.tail = { x: xTail, y: yTail }
-      history.push(nextState!)
+
+      if (nextState == null) return
+
+      // * update head
+      if (direction === 'D') nextState.head = { x: nextState.head.x, y: nextState.head.y + 1 }
+      if (direction === 'U') nextState.head = { x: nextState.head.x, y: nextState.head.y - 1 }
+      if (direction === 'R') nextState.head = { x: nextState.head.x + 1, y: nextState.head.y }
+      if (direction === 'L') nextState.head = { x: nextState.head.x - 1, y: nextState.head.y }
+
+      if (Math.abs(nextState.head.x - nextState.tail.x) > 1 || Math.abs(nextState.head.y - nextState.tail.y) > 1) {
+        /* eslint-disable no-multi-spaces */
+        if (nextState.head.x === nextState.tail.x && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y + 1 }       // up
+        if (nextState.head.x > nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y + 1 }   // up-right
+        if (nextState.head.x > nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x + 1, y: nextState.tail.y }       // right
+        if (nextState.head.x > nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x + 1, y: nextState.tail.y - 1 }   // down-right
+        if (nextState.head.x === nextState.tail.x && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x, y: nextState.tail.y - 1 }       // down
+        if (nextState.head.x < nextState.tail.x   && nextState.head.y < nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y - 1 }   // down-left
+        if (nextState.head.x < nextState.tail.x   && nextState.head.y === nextState.tail.y) nextState.tail = { x: nextState.tail.x - 1, y: nextState.tail.y }       // left
+        if (nextState.head.x < nextState.tail.x   && nextState.head.y > nextState.tail.y) nextState.tail =   { x: nextState.tail.x - 1, y: nextState.tail.y + 1 }   // up-left
+        /* eslint-enable no-multi-spaces */
+      }
+
+      history.push(nextState)
       visualizeRope(history, print)
     }
   })
+
+  const tailCoords = history.map((state) => `${state.tail.x},${state.tail.y}`)
+  // console.log(tailCoords)
+  // reduce an array to the array of every unique coordinate
+  const uniqueTailCoords = tailCoords.reduce<string[]>((acc, coord) => {
+    if (acc.includes(coord)) return acc
+    return [...acc, coord]
+  }, [])
+  // console.log(uniqueTailCoords.length + 1)
+
+
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
