@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-multiple-empty-lines */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { input, testInput } from './day_10_input'
+import { sign } from 'crypto'
+import { tinyInput, input, testInput } from './day_10_input'
 
 const terminalSpeed = 1
 const terminalVariability = 1
@@ -9,7 +13,7 @@ const invocation = '️/legacy/bin/shakespeare fairVerona.script'
 
 async function solution (print: (line?: string | null) => void) {
   print() // blank line
-  print(puzzleFunction(input, print))
+  print(puzzleFunction(testInput, print))
   print('frank@advent-of-code $')
 }
 
@@ -18,27 +22,64 @@ export default day
 
 // * 👇 Functions and/or whatever is helpful to get the actual job done down here 👇
 
+interface Register {
+  [key: string]: number
+}
+
+function checkCycle (registers: Register, cycle: number, signalStrengths: number[]) {
+  if (((cycle - 20)) % 40 === 0) {
+    console.log('cycle: ', cycle, ' registers: ', registers)
+    const signalStrength = cycle * registers.x!
+    console.log(`signal Strength for ${cycle}:  ${signalStrength}`)
+    signalStrengths.push(signalStrength)
+    console.log('')
+  }
+}
+
 function puzzleFunction (input: string, print: (line?: string) => void) {
-  const intro = [
-    'Two households, both alike in dignity,',
-    'In fair Verona, where we lay our scene,',
-    'From ancient grudge break to new mutiny,',
-    'Where civil blood makes civil hands unclean.',
-    'From forth the fatal loins of these two foes',
-    'A pair of star-cross\'d lovers take their life;',
-    'Whose misadventured piteous overthrows',
-    'Do with their death bury their parents\' strife.',
-    'The fearful passage of their death-mark\'d love,',
-    'And the continuance of their parents\' rage,',
-    'Which, but their children\'s end, nought could remove,',
-    'Is now the two hours\' traffic of our stage;',
-    'The which if you with patient ears attend,',
-    'What here shall miss, our toil shall strive to mend.'
-  ]
-  intro.map((line) => {
-    print(line + '\n')
+  const lines = input.split('\n')
+
+
+  const signalStrengths: number[] = []
+
+  let cycle = 0
+  const registers: Register = { x: 1 }
+  lines.map((line, index) => {
+    const pattern = /(\w+) *([-\d]*)/ // funny little 0 or more quantifier on a space char there
+    const instruction = line.match(pattern)
+    if (instruction![1]! === 'noop') {
+      cycle++
+      checkCycle(registers, cycle, signalStrengths)
+    } else if (instruction![1]!.startsWith('add')) {
+      const pattern = /add(\w+)/
+      const register = instruction![1]!.match(pattern)
+      const opLength = 2
+      for (let i = 0; i < opLength - 1; i++) {
+        cycle++
+        checkCycle(registers, cycle, signalStrengths)
+      }
+      cycle++
+      const scalar = parseInt(instruction![2]!)
+      console.log(`adding ${scalar} to ${register![1]!}`)
+      registers[register![1]!] = registers[register![1]!]! + scalar
+      checkCycle(registers, cycle, signalStrengths)
+    }
+
+
+
+
     return true
   })
+
+  // sum an array of numbers
+  const sum = signalStrengths.reduce((a, b) => a + b, 0)
+  console.log(sum)
+
+
+
+  console.log('cycle finished: ', cycle)
+  console.log('registers: ', registers)
+
 
   // * return null here to get that extra space before the waiting terminal prompt
   return null
